@@ -12,6 +12,7 @@
 		64E21CD32941493C00D009C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E21CD22941493C00D009C5 /* Assets.xcassets */; };
 		64E21CD62941493C00D009C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64E21CD52941493C00D009C5 /* Preview Assets.xcassets */; };
 		64E21CDF294163BE00D009C5 /* WeatherCityRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E21CDE294163BE00D009C5 /* WeatherCityRowView.swift */; };
+		64E21CE2294165C900D009C5 /* DetailWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E21CE1294165C900D009C5 /* DetailWeatherView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		64E21CD22941493C00D009C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64E21CD52941493C00D009C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		64E21CDE294163BE00D009C5 /* WeatherCityRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCityRowView.swift; sourceTree = "<group>"; };
+		64E21CE1294165C900D009C5 /* DetailWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				64E21CDD2941639400D009C5 /* WeatherListScreen */,
+				64E21CE02941658100D009C5 /* DetailWeatherScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -84,6 +87,14 @@
 				64E21CDE294163BE00D009C5 /* WeatherCityRowView.swift */,
 			);
 			path = WeatherListScreen;
+			sourceTree = "<group>";
+		};
+		64E21CE02941658100D009C5 /* DetailWeatherScreen */ = {
+			isa = PBXGroup;
+			children = (
+				64E21CE1294165C900D009C5 /* DetailWeatherView.swift */,
+			);
+			path = DetailWeatherScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64E21CE2294165C900D009C5 /* DetailWeatherView.swift in Sources */,
 				64E21CD12941493B00D009C5 /* WeatherListView.swift in Sources */,
 				64E21CCF2941493B00D009C5 /* WeatherApp.swift in Sources */,
 				64E21CDF294163BE00D009C5 /* WeatherCityRowView.swift in Sources */,
