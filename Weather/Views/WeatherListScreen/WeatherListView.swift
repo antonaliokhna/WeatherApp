@@ -19,6 +19,8 @@ struct WeatherListView: View {
                     ForEach(cityList, id: \.self) { city in
                         WeatherCityRowView()
                             .listRowInsets(EdgeInsets())
+                            .padding(.horizontal)
+                            .padding(.bottom, 8)
                     }
                 }
                 .listStyle(.plain)

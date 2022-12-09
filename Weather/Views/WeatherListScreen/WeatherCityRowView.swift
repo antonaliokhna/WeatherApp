@@ -13,20 +13,27 @@ struct WeatherCityRowView: View {
             VStack(alignment: .leading) {
                 Text("12:00 pm")
                     .font(.subheadline)
-                Text("Moscow")
+                Text("Minsk")
                     .font(.title)
+                    .lineLimit(1)
             }
-            Spacer(minLength: 88)
+            .frame(width: 160, alignment: .leading)
 
-            Image(systemName: "pencil.circle.fill")
-                .resizable()
-                .frame(width: 40, height: 40)
             Spacer()
-            Text("-13°")
+            Image(systemName: "cloud")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
+
+            Spacer(minLength: 56)
+            Text("-99°")
                 .font(.largeTitle)
                 .fontWeight(.light)
+                .frame(width: 72, alignment: .trailing)
         }
         .padding()
+        .background(.bar)
+        .cornerRadius(16)
     }
 }
 
