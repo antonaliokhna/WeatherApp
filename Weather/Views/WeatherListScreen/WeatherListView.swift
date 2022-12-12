@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  WeatherListView.swift
 //  Weather
 //
 //  Created by Anton Aliokhna on 12/8/22.
@@ -34,7 +34,7 @@ struct WeatherListView: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
+struct WeatherListView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherListView()
     }
