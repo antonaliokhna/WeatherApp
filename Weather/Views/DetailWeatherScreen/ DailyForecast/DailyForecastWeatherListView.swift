@@ -8,28 +8,27 @@
 import SwiftUI
 
 struct DailyForecastWeatherListView: View {
+    private var elemtns = Array(repeating: "", count: 7)
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Image(systemName: "calendar")
+        CustomWeatherStackView {
+            Label {
                 Text("7-DAY FORECAST")
+            } icon: {
+                Image(systemName: "calendar")
             }
-            .font(.footnote)
-            .foregroundColor(.gray)
-
-            ForEach(Array(repeating: 0, count: 7), id: \.self) { data in
-                Divider()
+        } contentView: {
+            ForEach(Array(elemtns.enumerated()), id: \.0) { index, element in
                 DailyForecastWeatherRowView()
+                if index < elemtns.count - 1 {
+                    Divider()
+                }
             }
         }
-        .padding()
-        .background(.bar)
-        .cornerRadius(16)
     }
 }
 
 struct DailyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyForecastWeatherListView()
+        DetailWeatherView()
     }
 }

@@ -28,7 +28,6 @@ struct HourlyForecastWeatherRowView: View {
                 .font(.headline)
         }
         .frame(width: 40)
-        //.background(.yellow)
     }
 }
 struct HourlyForecastWeatherRowView_Previews: PreviewProvider {

@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct HourlyForecastWeatherListView: View {
+    @State private var position: CGRect = CGRect()
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading) {
-                Text("Snowy conditions expected around 11AM.")
-                    .font(.subheadline)
+                Label {
+                    Text("HOURLY FORECAST")
+                } icon: {
+                    Image(systemName: "clock")
+                }
+                .font(.footnote)
+                .foregroundColor(.gray)
 
                 Divider()
             }
@@ -22,19 +28,21 @@ struct HourlyForecastWeatherListView: View {
                 HStack(spacing: 16) {
                     ForEach(Array(repeating: 0, count: 20), id: \.self) { _ in
                         HourlyForecastWeatherRowView()
-                            //.background(.yellow)
                     }
                 }
                 .padding([.horizontal, .bottom])
-
             }
         }
         .background(.bar)
         .cornerRadius(16)
+        .offset(y: position.minY >= 144 ? 0 : -position.minY + 144)
+        .background(GeometryGetter(rect: $position))
+
+
     }
 }
 struct HourlyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
-        HourlyForecastWeatherListView()
+        DetailWeatherView()
     }
 }
