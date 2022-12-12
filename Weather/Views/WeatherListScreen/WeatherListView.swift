@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct WeatherListView: View {
-    @State private var cityTextField: String = ""
-
-    private var cityList = ["Warsaw","Bucharest","Martuni","Shah Alam","Karmie","Budapest","Munich","Netivot","Santa Cruz de la Sierra","Porto Alegre","Kfar Yona","Palermo","Bremen","Jermuk","Beit Shemesh","Florence","Utrecht","Buenos Aires","Guayaquil","Rosario","Soledad","Subang Jaya","Valencia","Pasir Gudang","Akhtala"]
-
+    @ObservedObject private var viewModel = WeatherListViewModel()
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(cityList, id: \.self) { city in
-                        WeatherCityRowView()
-                            .listRowInsets(EdgeInsets())
-                            .padding(.horizontal)
-                            .padding(.bottom, 8)
+                    ForEach(viewModel.weatherCities, id: \.self) { cityName in
+                        WeatherCityRowView(
+                            viewModel: WeatherCityRowViewModel(
+                                cityName: cityName
+                            )
+                        )
+                        .listRowInsets(EdgeInsets())
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
                     }
                 }
                 .listStyle(.plain)
             }
             .navigationTitle(Text("Weather"))
-            .searchable(text: $cityTextField) {
-
+            .searchable(text: $viewModel.filterCityText) {
             }
         }
     }

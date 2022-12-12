@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct WeatherCityRowView: View {
+    let viewModel: WeatherCityRowViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text("12:00 pm")
                     .font(.subheadline)
-                Text("Minsk")
+                Text(viewModel.cityName)
                     .font(.title)
                     .lineLimit(1)
             }
@@ -39,6 +40,6 @@ struct WeatherCityRowView: View {
 
 struct WeatherCityRowView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherCityRowView()
+        WeatherCityRowView(viewModel: WeatherCityRowViewModel(cityName: "Moscow"))
     }
 }
