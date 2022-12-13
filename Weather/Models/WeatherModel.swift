@@ -12,7 +12,6 @@ struct WeatherModel: Codable {
     let current: Current
     let forecast: Forecast
 
-
     struct Location: Codable {
         let name: String //"name": "Minsk",
         let country: String //"country": "Belarus",
@@ -23,7 +22,7 @@ struct WeatherModel: Codable {
 
     struct Current: Codable {
         let tempC: Double // "temp_c": -3,
-        let isDay: Bool // "is_day": 0,
+        let isDay: Int // "is_day": 0,
         let windMph: Double // "wind_mph": 13.6,
         let windDegree: Int //"wind_degree": 190,
         let windDir: String //"wind_dir": "S",
@@ -37,7 +36,7 @@ struct WeatherModel: Codable {
         let visMiles: Int // "vis_miles": 4,
         let uv: Int //"uv": 1,
         let gustMph: Double // "gust_mph": 20.8,
-
+        let condition: Condition
 
         struct Condition: Codable {
             let text: String //"text": "Overcast",
@@ -47,11 +46,11 @@ struct WeatherModel: Codable {
     }
 
     struct Forecast: Codable {
-        let forecastday: Forecastday
+        let forecastday: [Forecastday]
 
         struct Forecastday: Codable {
             let dateEpoch: Int // "date_epoch": 1670889600,
-            let uv: Int // "uv": 1
+            let day: Day
 
             struct Day: Codable {
                 let maxtempC: Double
@@ -65,15 +64,18 @@ struct WeatherModel: Codable {
                 let totalprecipMm: Double
                 let totalprecipIn: Double
                 let totalsnowCm: Double
-                let avgvisKm: Int
-                let avgvisMiles: Int
+                let avgvisKm: Double
+                let avgvisMiles: Double
                 let avghumidity: Int
                 let dailyWillItRain: Int
                 let dailyChanceOfRain: Int
                 let dailyWillItSnow: Int
                 let dailyChanceOfSnow: Int
                 let condition: Current.Condition
+                let uv: Int // "uv": 1
             }
+
+            let astro: Astro
 
             struct Astro: Codable {
                 let sunrise: String //"09:20 AM",
@@ -81,14 +83,16 @@ struct WeatherModel: Codable {
                 let moonrise: String //"09:40 PM",
                 let moonset: String //"01:12 PM",
                 let moonPhase: String //"Waning Gibbous",
-                let moonIllumination: Int // "62"
+                let moonIllumination: String // "62"
             }
+
+            let hour: [Hour]
 
             struct Hour: Codable {
                 let timeEpoch: Int // 1670878800,
                 let time: String // "2022-12-13 00:00",
                 let tempC: Double //-4.6,
-                let isDay: Bool // 0,
+                let isDay: Int // 0,
                 let condition: Current.Condition
                 let windMph: Double //14.8,
                 let windKph: Double //23.8,
@@ -96,8 +100,8 @@ struct WeatherModel: Codable {
                 let windDir: String // "SSW",
                 let pressureMb: Int //1001,
                 let pressureIn: Double // 29.54,
-                let precipMm: Int // 0,
-                let precipIn: Int // 0,
+                let precipMm: Double // 0,
+                let precipIn: Double // 0,
                 let humidity: Int // 93,
                 let cloud: Int // 100,
                 let feelslikeC: Double // -11.6,

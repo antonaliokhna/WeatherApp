@@ -8,6 +8,7 @@
 import Foundation
 
 class WeatherListViewModel: ObservableObject {
+    private let dataFetcher = DataFecherService()
     private var weatherListModel = WeatherListModel()
     @Published var filterCityText: String = "" {
         didSet {
@@ -20,6 +21,6 @@ class WeatherListViewModel: ObservableObject {
     }
 
     init(weatherCityRowViewModels: WeatherListModel = WeatherListModel()) {
-
+        dataFetcher.fetchWeatherData()
     }
 }
