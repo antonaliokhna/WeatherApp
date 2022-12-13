@@ -14,17 +14,28 @@ struct WeatherListView: View {
             VStack {
                 List {
                     ForEach(viewModel.weatherCities, id: \.self) { cityName in
-                        WeatherCityRowView(
-                            viewModel: WeatherCityRowViewModel(
-                                cityName: cityName
-                            )
+                        let rowViewModel = WeatherCityRowViewModel(
+                            cityName: cityName
                         )
+                        NavigationLink {
+                            DetailWeatherView()
+                           .navigationBarBackButtonHidden(true)
+                               // .toolbarBackground(.hidden, for: .bottomBar)
+                            //                            DetailWeatherView(
+                            //                                weatherCityRowViewModel: rowViewModel
+                            //                            )
+                        } label: {
+                            WeatherCityRowView(
+                                viewModel: rowViewModel
+                            )
+                        }
+
                         .listRowInsets(EdgeInsets())
                         .padding(.horizontal)
-                        .padding(.bottom, 8)
+                        .padding(.vertical, 8)
                     }
                 }
-                .listStyle(.plain)
+                .listStyle(.inset)
             }
             .navigationTitle(Text("Weather"))
             .searchable(text: $viewModel.filterCityText) {
