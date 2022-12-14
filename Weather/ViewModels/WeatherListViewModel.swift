@@ -21,6 +21,16 @@ class WeatherListViewModel: ObservableObject {
     }
 
     init(weatherCityRowViewModels: WeatherListModel = WeatherListModel()) {
-        dataFetcher.fetchWeatherData()
+        dataFetcher.fetchWeatherModelData(
+            cityName: "Minsk",
+            coundDaysforecast: 7
+        ) { result in
+            switch result {
+            case .success(_):
+                print("Model is decoded.")
+            case .failure(let error):
+                print(error.errorDescription ?? "some error")
+            }
+        }
     }
 }

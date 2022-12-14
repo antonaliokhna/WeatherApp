@@ -10,29 +10,21 @@ import Alamofire
 
 class DataFecherService {
 
-    private let apiKey = "API KEY"
+    private let apiKey = "API_KEY"
 
-    var dataFetcher: DataFetcher
+    var dataFetcher: DataFetcherType
 
-    init(dataFetcher: DataFetcher = NetworkDataFetcher()) {
+    init(dataFetcher: DataFetcherType = NetworkDataFetcher()) {
         self.dataFetcher = dataFetcher
     }
 
-    func fetchWeatherData() {
-        let cityName = "Minsk"
-        let countDays = 7
-        let url = "https://api.weatherapi.com/v1/forecast.json?key=\(apiKey)&q=\(cityName)&days=\(countDays)"
+    func fetchWeatherModelData(
+        cityName: String,
+        coundDaysforecast: Int,
+        completion: @escaping (Result<WeatherModel, NetworkError>) -> Void
+    ) {
+        let stringUrl = "https://api.weatherapi.com/v1/forecast.json?key=\(apiKey)&q=\(cityName)&days=\(coundDaysforecast)"
 
-        let completion =  { (result: Result<WeatherModel, NetworkError>) in
-            switch result {
-            case .failure(let error):
-                print(error.errorDescription ?? "some error")
-                
-            case .success(let model):
-                print(model)
-            }
-        }
-
-        dataFetcher.fetchGenericJSONData(stringUrl: url, response: completion)
+        self.dataFetcher.fetchGenericJSONData(stringUrl: stringUrl, response: completion)
     }
 }

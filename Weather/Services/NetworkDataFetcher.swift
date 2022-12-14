@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol DataFetcher {
-    func fetchGenericJSONData<T: Decodable>(stringUrl: String, response: @escaping (Result<T, NetworkError>) -> Void)
-}
-
-class NetworkDataFetcher: DataFetcher {
+class NetworkDataFetcher: DataFetcherType {
 
     var networkService: Networkign
 
@@ -19,23 +15,27 @@ class NetworkDataFetcher: DataFetcher {
         self.networkService = networkService
     }
 
-    func fetchGenericJSONData<T: Decodable>(stringUrl: String, response: @escaping (Result<T, NetworkError>) -> Void) {
+    func fetchGenericJSONData<T: Decodable>(
+        stringUrl: String,
+        response: @escaping completionHandlerWitchGenericTypeOrNetworkError<T>
+    ) {
         networkService.request(stringUrl: stringUrl) { result in
-
             switch result {
             case .success(let data):
                 let decodedData = self.decodeJSON(type: T.self, from: data)
-                print(decodedData)
                 response(decodedData)
             case .failure(let error):
-                response(.failure(.requestFailed(description: error.localizedDescription)))
+                response(.failure(error.convertToNetworkError))
             }
         }
     }
 
-    private func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> Result<T, NetworkError> {
+    private func decodeJSON<T: Decodable>(
+        type: T.Type,
+        from: Data?
+    ) -> resultWitchGenericTypeOrNetworkError<T> {
         guard let data = from else {
-            return .failure(.invalidDecodingData(description: "Data is empty"))
+            return .failure(.decodingDataFailed)
         }
 
         let decoder = JSONDecoder()
@@ -44,8 +44,8 @@ class NetworkDataFetcher: DataFetcher {
             let object = try decoder.decode(type, from: data)
 
             return .success(object)
-        } catch(let error) {
-            return .failure(.invalidDecodingData(description: error.localizedDescription))
+        } catch {
+            return .failure(.decodingDataFailed)
         }
     }
 }
