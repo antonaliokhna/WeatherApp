@@ -8,8 +8,9 @@
 import Foundation
 
 struct WeatherListModel {
-    private var addCities = ["Warsaw","Bucharest","Martuni","Shah Alam","Karmie","Budapest","Munich","Netivot","Santa Cruz de la Sierra","Porto Alegre","Kfar Yona","Palermo","Bremen","Jermuk","Beit Shemesh","Florence","Utrecht","Buenos Aires","Guayaquil","Rosario","Soledad","Subang Jaya","Valencia","Pasir Gudang","Akhtala"]
-    lazy var filteredCities: [String] = addCities
+    private(set) var favoriteCities = ["Warsaw"]
+
+    lazy var filteredCities: [String] = favoriteCities
 
     mutating func filterCitiesBy(text: String) {
         guard !text.isEmpty else {
@@ -17,10 +18,14 @@ struct WeatherListModel {
 
             return
         }
-        filteredCities = addCities.filter{ $0.hasPrefix(text) }
+        filteredCities = favoriteCities.filter{ $0.hasPrefix(text) }
     }
 
     mutating func clearFilteredCities() {
-        filteredCities = addCities
+        filteredCities = favoriteCities
+    }
+
+    mutating func addFavoriteCity(name: String) {
+        favoriteCities.append(name)
     }
 }

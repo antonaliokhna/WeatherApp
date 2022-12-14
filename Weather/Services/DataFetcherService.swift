@@ -27,4 +27,13 @@ class DataFecherService {
 
         self.dataFetcher.fetchGenericJSONData(stringUrl: stringUrl, response: completion)
     }
+
+    func searchCityWeather(
+        cityName: String,
+        completion: @escaping (Result<[SearchCityWeatherModel], NetworkError>) -> Void
+    ) {
+        let stringUrl = "https://api.weatherapi.com/v1/search.json?key=\(apiKey)&q=\(cityName)"
+
+        self.dataFetcher.fetchGenericJSONData(stringUrl: stringUrl, response: completion)
+    }
 }

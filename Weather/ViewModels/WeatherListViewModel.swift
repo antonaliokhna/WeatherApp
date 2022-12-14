@@ -8,29 +8,61 @@
 import Foundation
 
 class WeatherListViewModel: ObservableObject {
+
     private let dataFetcher = DataFecherService()
     private var weatherListModel = WeatherListModel()
+
+    private var searchCitiesModels: [SearchCityWeatherModel] = []
+
+    var searchCitiesNames: [String] {
+        //return weatherListModel.filteredCities
+
+        return searchCitiesModels.map { $0.name }
+    }
+
     @Published var filterCityText: String = "" {
         didSet {
-            weatherListModel.filterCitiesBy(text: filterCityText)
+            //weatherListModel.filterCitiesBy(text: filterCityText)
+            if filterCityText.count >= 3 {
+                searchCitiesBy(cityNameText: filterCityText)
+            }
         }
     }
 
-    var weatherCities: [String] {
-        weatherListModel.filteredCities
+    var weatherAddedCities: [String] {
+        return weatherListModel.favoriteCities
     }
 
     init(weatherCityRowViewModels: WeatherListModel = WeatherListModel()) {
-        dataFetcher.fetchWeatherModelData(
-            cityName: "Minsk",
-            coundDaysforecast: 7
-        ) { result in
+        //        dataFetcher.fetchWeatherModelData(
+        //            cityName: "Minsk",
+        //            coundDaysforecast: 7
+        //        ) { result in
+        //            switch result {
+        //            case .success(_):
+        //                print("Model is decoded.")
+        //            case .failure(let error):
+        //                print(error.errorDescription ?? "some error")
+        //            }
+        //        }
+    }
+
+    func searchCitiesBy(cityNameText: String) {
+        dataFetcher.searchCityWeather(cityName: cityNameText) { result in
             switch result {
-            case .success(_):
-                print("Model is decoded.")
+            case .success(let searchCities):
+                self.searchCitiesModels = searchCities
+                print( self.searchCitiesModels.count)
+                self.searchCitiesModels.forEach{ city in
+                    print(city.name)
+                }
             case .failure(let error):
                 print(error.errorDescription ?? "some error")
             }
         }
+    }
+
+    func addCity(name: String) {
+        weatherListModel.addFavoriteCity(name: name)
     }
 }
