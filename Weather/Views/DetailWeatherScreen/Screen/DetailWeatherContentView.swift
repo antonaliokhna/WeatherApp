@@ -31,7 +31,7 @@ struct DetailWeatherContentView: View {
                     VStack(spacing: 16) {
                         Text(weatherViewModel.cityName)
                         DetailWeatherHeaderView(
-                            topSafeAreaEdge: topSafeAreaEdge,
+                            detailWeatherHeaderViewModel: weatherViewModel.detailHeaderVideModel, topSafeAreaEdge: topSafeAreaEdge,
                             hourlyForecastPosition: $hourlyForecastBlock
                         )
 

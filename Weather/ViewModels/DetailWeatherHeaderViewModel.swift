@@ -10,12 +10,20 @@ import Foundation
 class DetailWeatherHeaderViewModel {
     private let weatherModel: WeatherModel
 
+    private var temperature: Double {
+        return weatherModel.current.tempC
+    }
+
     var cityName: String {
         return weatherModel.location.name
     }
 
-    var temperature: String {
-        return weatherModel.current.tempC.description
+    var temperatureWithoutSign: String {
+        return "\(abs(temperature).roundedSingleValue)°"
+    }
+
+    var isNegativeTemperature: Bool {
+        return temperature < 0
     }
 
     var description: String {
@@ -26,10 +34,10 @@ class DetailWeatherHeaderViewModel {
         guard let forecaseFirstDay = weatherModel.forecast.forecastday.first else {
             return "Unknown"
         }
-        let max = forecaseFirstDay.day.maxtempC
-        let min = forecaseFirstDay.day.mintempC
+        let max = forecaseFirstDay.day.maxtempC.roundedSingleValue
+        let min = forecaseFirstDay.day.mintempC.roundedSingleValue
 
-        return "H:\(max)° L:\(min)° "
+        return "H: \(max)° L: \(min)°"
     }
 
     var temperatureAndDescription: String {

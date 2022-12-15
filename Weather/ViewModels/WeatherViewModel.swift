@@ -22,6 +22,7 @@ class WeatherViewModel: ObservableObject {
         return DetailWeatherHeaderViewModel(weatherModel: weatherModel.value!)
     }
 
+
 //    var currentWeather: [WeatherModel.Current] {
 //        return weatherModel.value?.current ?? WeatherModel.Current(
 //    }

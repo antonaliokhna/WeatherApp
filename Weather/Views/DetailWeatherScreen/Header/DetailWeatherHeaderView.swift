@@ -20,12 +20,12 @@ struct DetailWeatherHeaderView: View {
     @Binding var hourlyForecastPosition: CGRect
 
     private let maxDifferenceY: CGFloat = 50
-    private var offset: CGFloat {
+    private var topOffset: CGFloat {
         return self.position.minY - topSafeAreaEdge
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             Text(detailWeatherHeaderViewModel.cityName)
                 .font(.largeTitle)
 
@@ -44,12 +44,17 @@ struct DetailWeatherHeaderView: View {
                         : 0
                     )
 
-                Text(detailWeatherHeaderViewModel.temperature)
-                    .font(.system(size: 72, weight: .light))
-                    .background(GeometryGetter(rect: $temperatureBlock))
-                    .opacity((getDifferenceOpacity(
-                        currentValue: temperatureBlock.maxY))
-                    )
+                HStack {
+                    if detailWeatherHeaderViewModel.isNegativeTemperature {
+                        Text("-")
+                    }
+                    Text(detailWeatherHeaderViewModel.temperatureWithoutSign)
+                }
+                .font(.system(size: 72, weight: .light))
+                .background(GeometryGetter(rect: $temperatureBlock))
+                .opacity((getDifferenceOpacity(
+                    currentValue: temperatureBlock.maxY))
+                )
             }
 
             Text(detailWeatherHeaderViewModel.description)
@@ -60,17 +65,17 @@ struct DetailWeatherHeaderView: View {
                 ))
 
             Text(detailWeatherHeaderViewModel.maxMinTemperature)
-            .font(.title3)
-            .fontWeight(.light)
-            .background(GeometryGetter(rect: $coordinatesBlock))
-            .opacity(getDifferenceOpacity(
-                currentValue: coordinatesBlock.maxY
-            ))
+                .font(.title2)
+                .fontWeight(.light)
+                .background(GeometryGetter(rect: $coordinatesBlock))
+                .opacity(getDifferenceOpacity(
+                    currentValue: coordinatesBlock.maxY
+                ))
         }
         .padding(.vertical, 64)
-        .offset(y: -offset)
-        .offset(y: offset > 0 ?
-                (offset / UIScreen.main.bounds.width) * 50 : 0)
+        .offset(y: -topOffset)
+        .offset(y: topOffset > 0 ?
+                (topOffset / UIScreen.main.bounds.width) * 50 : 0)
         .offset(y: getOffset())
         .background(GeometryGetter(rect: $position))
     }
@@ -95,9 +100,9 @@ private extension DetailWeatherHeaderView {
     }
 
     private func getOffset() -> CGFloat {
-        guard offset < 0 else { return 0 }
+        guard topOffset < 0 else { return 0 }
 
-        let progress = (-offset / topSafeAreaEdge) / 2
+        let progress = (-topOffset / topSafeAreaEdge) / 2
         let offset = (progress <= 1 ? progress : 1) * topSafeAreaEdge
 
         return -offset
