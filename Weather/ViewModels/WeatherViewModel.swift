@@ -18,7 +18,8 @@ class WeatherViewModel: ObservableObject {
     @Published var cityName: String = "--"
 
     var detailHeaderVideModel: DetailWeatherHeaderViewModel {
-        return DetailWeatherHeaderViewModel(weatherModel: weatherModel.value ?? )
+        //TODO: - REPLASE TO EMPTY INIT
+        return DetailWeatherHeaderViewModel(weatherModel: weatherModel.value!)
     }
 
 //    var currentWeather: [WeatherModel.Current] {
