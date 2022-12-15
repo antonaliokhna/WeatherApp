@@ -10,27 +10,21 @@ import SwiftUI
 struct WeatherListView: View {
     @ObservedObject private var viewModel = WeatherListViewModel()
     @Environment(\.dismissSearch) private var dismissSearch
+    @Environment(\.dismiss) private var dismiss
+    @State var isPresentedLa: Bool = false
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(viewModel.weatherAddedCities, id: \.self) { cityName in
-                        let rowViewModel = WeatherCityRowViewModel(
-                            cityName: cityName
-                        )
+                    ForEach(viewModel.weatherViewModels, id: \.self) { weatherViewModel in
                         NavigationLink {
-                            DetailWeatherView()
+                            DetailWeatherView(weatherViewModel: weatherViewModel)
                                 .navigationBarBackButtonHidden(true)
-                            // .toolbarBackground(.hidden, for: .bottomBar)
-                            //                            DetailWeatherView(
-                            //                                weatherCityRowViewModel: rowViewModel
-                            //                            )
                         } label: {
                             WeatherCityRowView(
-                                viewModel: rowViewModel
+                                viewModel: weatherViewModel
                             )
                         }
-
                         .listRowInsets(EdgeInsets())
                         .padding(.horizontal)
                         .padding(.vertical, 8)
@@ -43,13 +37,29 @@ struct WeatherListView: View {
                 ) {
                     ForEach(viewModel.searchCitiesNames, id: \.self) { cityName in
                         Button {
-                            viewModel.addCity(name: cityName)
-                            dismissSearch()
+                            viewModel.addFavoriteCity(name: cityName)
+                            //dismissSearch()
+                            isPresentedLa.toggle()
                         } label: {
                             Text(cityName)
                         }
                         .font(.title3)
                         .foregroundColor(.gray)
+
+                        .sheet(isPresented: $isPresentedLa) {
+//                            NavigationView {
+//                                DetailWeatherContentView(
+//                                    topSafeAreaEdge: 60)
+//                                    .toolbar {
+//                                        ToolbarItem(placement: .cancellationAction) {
+//                                            Button("Cancel", action: {})
+//                                        }
+//                                        ToolbarItem(placement: .confirmationAction) {
+//                                            Button("Add", action: {})
+//                                        }
+//                                    }
+//                            }
+                        }
                     }
                 }
                 .scrollIndicators(.hidden)

@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct DetailWeatherView: View {
+    @StateObject var weatherViewModel: WeatherViewModel
     var body: some View {
         GeometryReader { geometry in
             let topEdge = geometry.safeAreaInsets.top
-            DetailWeatherContentView(topSafeAreaEdge: topEdge)
-                .ignoresSafeArea(.all)
+            DetailWeatherContentView(
+                weatherViewModel: weatherViewModel,
+                topSafeAreaEdge: topEdge
+            )
+            .ignoresSafeArea(.all)
         }
     }
 }
 
 struct DetailWeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView()
+        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
     }
 }

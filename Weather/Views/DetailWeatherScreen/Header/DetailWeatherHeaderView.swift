@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailWeatherHeaderView: View {
+    var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel
     @State var topSafeAreaEdge: CGFloat
 
     @State private var position: CGRect = CGRect()
@@ -25,11 +26,11 @@ struct DetailWeatherHeaderView: View {
 
     var body: some View {
         VStack {
-            Text("Minsk")
+            Text(detailWeatherHeaderViewModel.cityName)
                 .font(.largeTitle)
 
             ZStack(alignment: .top) {
-                Text("-4° | Cloudy")
+                Text(detailWeatherHeaderViewModel.temperatureAndDescription)
                     .font(.title3)
                     .background(GeometryGetter(
                         rect: $weatherAndTemperatureBlock)
@@ -43,7 +44,7 @@ struct DetailWeatherHeaderView: View {
                         : 0
                     )
 
-                Text("-4°")
+                Text(detailWeatherHeaderViewModel.temperature)
                     .font(.system(size: 72, weight: .light))
                     .background(GeometryGetter(rect: $temperatureBlock))
                     .opacity((getDifferenceOpacity(
@@ -51,17 +52,14 @@ struct DetailWeatherHeaderView: View {
                     )
             }
 
-            Text("Cloudy")
+            Text(detailWeatherHeaderViewModel.description)
                 .font(.title2)
                 .background(GeometryGetter(rect: $weatherBlock))
                 .opacity(getDifferenceOpacity(
                     currentValue: weatherBlock.maxY
                 ))
 
-            HStack {
-                Text("H: 0°")
-                Text("L: -4°")
-            }
+            Text(detailWeatherHeaderViewModel.maxMinTemperature)
             .font(.title3)
             .fontWeight(.light)
             .background(GeometryGetter(rect: $coordinatesBlock))
@@ -81,7 +79,7 @@ struct DetailWeatherHeaderView: View {
 }
 struct DetailWeatherHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView()
+        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
     }
 }
 

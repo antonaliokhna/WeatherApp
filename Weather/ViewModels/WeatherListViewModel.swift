@@ -8,16 +8,18 @@
 import Foundation
 
 class WeatherListViewModel: ObservableObject {
-
     private let dataFetcher = DataFecherService()
-    private var weatherListModel = WeatherListModel()
 
+    private var weatherListModel = WeatherListModel()
     private var searchCitiesModels: [SearchCityWeatherModel] = []
 
-    var searchCitiesNames: [String] {
-        //return weatherListModel.filteredCities
+    var weatherViewModels: [WeatherViewModel] {
+        return weatherFavoriteCities.map { WeatherViewModel(cityName: $0) }
+    }
 
-        return searchCitiesModels.map { $0.name }
+    var searchCitiesNames: [String] {
+        return weatherListModel.favoriteCities
+        //return searchCitiesModels.map { $0.name }
     }
 
     @Published var filterCityText: String = "" {
@@ -29,7 +31,7 @@ class WeatherListViewModel: ObservableObject {
         }
     }
 
-    var weatherAddedCities: [String] {
+    var weatherFavoriteCities: [String] {
         return weatherListModel.favoriteCities
     }
 
@@ -62,7 +64,7 @@ class WeatherListViewModel: ObservableObject {
         }
     }
 
-    func addCity(name: String) {
+    func addFavoriteCity(name: String) {
         weatherListModel.addFavoriteCity(name: name)
     }
 }

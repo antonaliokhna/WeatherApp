@@ -25,6 +25,6 @@ struct DescriptionDetailWeatherCollectionView: View {
 
 struct DescriptionDetailWeatherCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView()
+        DescriptionDetailWeatherCollectionView()
     }
 }

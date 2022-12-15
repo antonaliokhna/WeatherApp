@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherCityRowView: View {
-    let viewModel: WeatherCityRowViewModel
+    @StateObject var viewModel: WeatherViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -40,6 +40,6 @@ struct WeatherCityRowView: View {
 
 struct WeatherCityRowView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherCityRowView(viewModel: WeatherCityRowViewModel(cityName: "Moscow"))
+        WeatherCityRowView(viewModel: WeatherViewModel(cityName: "Moscow"))
     }
 }

@@ -26,7 +26,7 @@ struct HourlyForecastWeatherListView: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(Array(repeating: 0, count: 20), id: \.self) { _ in
+                    ForEach(Array(repeating: 0, count: 24), id: \.self) { _ in
                         HourlyForecastWeatherRowView()
                     }
                 }
@@ -43,6 +43,6 @@ struct HourlyForecastWeatherListView: View {
 }
 struct HourlyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView()
+        HourlyForecastWeatherListView()
     }
 }

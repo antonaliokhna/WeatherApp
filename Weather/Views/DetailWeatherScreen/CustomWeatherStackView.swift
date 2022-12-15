@@ -47,6 +47,6 @@ struct CustomWeatherStackView<Label: View, Content: View>: View {
 
 struct CustomWeatherStackView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView()
+        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
     }
 }
