@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DailyForecastWeatherListView: View {
-    private var elemtns = Array(repeating: "", count: 7)
+    var dailyForecastViewModel: [DailyForecastWeatherViewModel]
     var body: some View {
         CustomWeatherStackView {
             Label {
@@ -17,9 +17,12 @@ struct DailyForecastWeatherListView: View {
                 Image(systemName: "calendar")
             }
         } contentView: {
-            ForEach(Array(elemtns.enumerated()), id: \.0) { index, element in
-                DailyForecastWeatherRowView()
-                if index < elemtns.count - 1 {
+            ForEach(Array(dailyForecastViewModel.enumerated()), id: \.0)
+            { index, dayForecastViewModel in
+                DailyForecastWeatherRowView(
+                    dayForecastViewModel: dayForecastViewModel
+                )
+                if index < dailyForecastViewModel.count - 1 {
                     Divider()
                 }
             }
@@ -29,6 +32,9 @@ struct DailyForecastWeatherListView: View {
 
 struct DailyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyForecastWeatherListView()
+        DetailWeatherView(
+            weatherViewModel:
+                WeatherViewModel(cityName: "Moscow")
+        )
     }
 }

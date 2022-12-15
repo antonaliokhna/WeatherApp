@@ -22,6 +22,12 @@ class WeatherViewModel: ObservableObject {
         return DetailWeatherHeaderViewModel(weatherModel: weatherModel.value!)
     }
 
+    var dailyForecastViewModels: [DailyForecastWeatherViewModel] {
+        return weatherModel.value!.forecast.forecastday.map {
+            DailyForecastWeatherViewModel(weathderForecustDay: $0)
+        }
+    }
+
 
 //    var currentWeather: [WeatherModel.Current] {
 //        return weatherModel.value?.current ?? WeatherModel.Current(

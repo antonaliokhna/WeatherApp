@@ -8,7 +8,7 @@
 import Foundation
 
 extension Double {
-    var roundedSingleValue: String {
+    var toRoundedNonfractionalStringValue: String {
         return String(format: "%.f", (self.rounded()))
     }
 }

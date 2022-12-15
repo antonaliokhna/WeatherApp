@@ -19,7 +19,7 @@ class DetailWeatherHeaderViewModel {
     }
 
     var temperatureWithoutSign: String {
-        return "\(abs(temperature).roundedSingleValue)°"
+        return "\(abs(temperature).toRoundedNonfractionalStringValue)°"
     }
 
     var isNegativeTemperature: Bool {
@@ -34,8 +34,8 @@ class DetailWeatherHeaderViewModel {
         guard let forecaseFirstDay = weatherModel.forecast.forecastday.first else {
             return "Unknown"
         }
-        let max = forecaseFirstDay.day.maxtempC.roundedSingleValue
-        let min = forecaseFirstDay.day.mintempC.roundedSingleValue
+        let max = forecaseFirstDay.day.maxtempC.toRoundedNonfractionalStringValue
+        let min = forecaseFirstDay.day.mintempC.toRoundedNonfractionalStringValue
 
         return "H: \(max)° L: \(min)°"
     }

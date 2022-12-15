@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct DailyForecastWeatherRowView: View {
+    var dayForecastViewModel: DailyForecastWeatherViewModel
     var body: some View {
         HStack {
-            Text("Today")
+            Text(dayForecastViewModel.weekDat)
                 .font(.title3)
                 .frame(width: 56, alignment: .leading)
 
             Spacer()
             HStack {
-                Image(systemName: "cloud")
+                Image(systemName: dayForecastViewModel.weatherImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 24, height: 24)
 
-                Text("100%")
+                Text(dayForecastViewModel.precipitationProbability)
                     .font(.footnote)
                     .foregroundColor(.cyan)
             }
@@ -29,11 +30,11 @@ struct DailyForecastWeatherRowView: View {
 
             Spacer()
             HStack() {
-                Text("-29°")
+                Text(dayForecastViewModel.minDayTemperature)
                     .foregroundColor(.gray)
 
                 Spacer()
-                Text("-12°")
+                Text(dayForecastViewModel.maxDayTemperature)
             }
             .font(.title3)
             .frame(width: 104, alignment: .trailing)
@@ -43,6 +44,6 @@ struct DailyForecastWeatherRowView: View {
 
 struct DailyForecastWeatherRowView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyForecastWeatherRowView()
+        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Moscow"))
     }
 }

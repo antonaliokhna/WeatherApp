@@ -29,16 +29,19 @@ struct DetailWeatherContentView: View {
             case .sucsess:
                 ScrollView(showsIndicators: false)  {
                     VStack(spacing: 16) {
-                        Text(weatherViewModel.cityName)
                         DetailWeatherHeaderView(
-                            detailWeatherHeaderViewModel: weatherViewModel.detailHeaderVideModel, topSafeAreaEdge: topSafeAreaEdge,
+                            detailWeatherHeaderViewModel:
+                                weatherViewModel.detailHeaderVideModel,
+                            topSafeAreaEdge: topSafeAreaEdge,
                             hourlyForecastPosition: $hourlyForecastBlock
                         )
 
                         HourlyForecastWeatherListView()
                             .background(GeometryGetter(rect: $hourlyForecastBlock))
 
-                        DailyForecastWeatherListView()
+                        DailyForecastWeatherListView(
+                            dailyForecastViewModel: weatherViewModel.dailyForecastViewModels
+                        )
                         DescriptionDetailWeatherCollectionView()
                     }
                     .shadow(
