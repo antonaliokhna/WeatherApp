@@ -8,38 +8,40 @@
 import SwiftUI
 
 struct WeatherCityRowView: View {
-    @StateObject var viewModel: WeatherViewModel
+    //@StateObject var viewModel: WeatherViewModel
+    @StateObject var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("12:00 pm")
+                Text(detailWeatherHeaderViewModel.cityName)
+                    .font(.largeTitle)
+
+                Text(detailWeatherHeaderViewModel.currentTime)
                     .font(.subheadline)
-                Text(viewModel.cityName)
-                    .font(.title)
-                    .lineLimit(1)
+                    .foregroundColor(.gray)
+
+                Spacer()
+                Text(detailWeatherHeaderViewModel.description)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
             }
-            .frame(width: 160, alignment: .leading)
+            .lineLimit(1)
 
             Spacer()
-            Image(systemName: "cloud")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
+            VStack(alignment: .trailing) {
+                Text(detailWeatherHeaderViewModel.temperature)
+                    .font(.system(size: 48))
+                    .fontWeight(.light)
 
-            Spacer(minLength: 56)
-            Text("-99°")
-                .font(.largeTitle)
-                .fontWeight(.light)
-                .frame(width: 72, alignment: .trailing)
+                Spacer()
+
+                Text(detailWeatherHeaderViewModel.maxMinTemperature)
+                    .font(.headline)
+            }
         }
+        .frame(height: 96)
         .padding()
         .background(.bar)
         .cornerRadius(16)
-    }
-}
-
-struct WeatherCityRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        WeatherCityRowView(viewModel: WeatherViewModel(cityName: "Moscow"))
     }
 }

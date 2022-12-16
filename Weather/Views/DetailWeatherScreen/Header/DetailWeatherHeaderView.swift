@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailWeatherHeaderView: View {
     var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel
-    @State var topSafeAreaEdge: CGFloat
+    var topSafeAreaEdge: CGFloat
 
     @State private var position: CGRect = CGRect()
     @State private var weatherAndTemperatureBlock: CGRect = CGRect()
@@ -56,6 +56,7 @@ struct DetailWeatherHeaderView: View {
                     currentValue: temperatureBlock.maxY))
                 )
             }
+            //Text(topOffset.description)
 
             Text(detailWeatherHeaderViewModel.description)
                 .font(.title2)
@@ -72,10 +73,8 @@ struct DetailWeatherHeaderView: View {
                     currentValue: coordinatesBlock.maxY
                 ))
         }
-        .padding(.vertical, 64)
-        .offset(y: -topOffset)
-        .offset(y: topOffset > 0 ?
-                (topOffset / UIScreen.main.bounds.width) * 50 : 0)
+        .offset(y: topSafeAreaEdge)
+        .offset(y: topOffset < 0 ? -topOffset : (-topOffset / UIScreen.main.bounds.width) * 100)
         .offset(y: getOffset())
         .background(GeometryGetter(rect: $position))
     }

@@ -160,8 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				642B365B294AA57A00A0CBC9 /* DetailWeatherHeaderViewModel.swift */,
-				642B3661294AB6FF00A0CBC9 /* HourlyForecastRowViewModel.swift */,
 				642B3665294AB8EA00A0CBC9 /* DailyForecastWeatherViewModel.swift */,
+				642B3661294AB6FF00A0CBC9 /* HourlyForecastRowViewModel.swift */,
 			);
 			path = DetailWeatherScreen;
 			sourceTree = "<group>";

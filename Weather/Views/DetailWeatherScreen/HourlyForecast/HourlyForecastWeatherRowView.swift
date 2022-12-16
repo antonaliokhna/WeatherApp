@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HourlyForecastWeatherRowView: View {
+    //var hourlyForecastRowViewModel: HourlyForecastRowViewModel
     var body: some View {
         VStack {
             HStack(alignment: .bottom, spacing: 0) {
@@ -30,8 +31,9 @@ struct HourlyForecastWeatherRowView: View {
         .frame(width: 40)
     }
 }
-struct HourlyForecastWeatherRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        HourlyForecastWeatherRowView()
-    }
-}
+
+//struct HourlyForecastWeatherRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HourlyForecastWeatherRowView()
+//    }
+//}

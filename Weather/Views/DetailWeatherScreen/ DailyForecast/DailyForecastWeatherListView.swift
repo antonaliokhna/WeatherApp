@@ -9,8 +9,10 @@ import SwiftUI
 
 struct DailyForecastWeatherListView: View {
     var dailyForecastViewModel: [DailyForecastWeatherViewModel]
+
+    var topOffsetSafeArea: CGFloat = 0
     var body: some View {
-        CustomWeatherStackView {
+        CustomWeatherStackView(topOffsetSafeArea: topOffsetSafeArea) {
             Label {
                 Text("7-DAY FORECAST")
             } icon: {

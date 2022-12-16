@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct DescriptionDetailWeatherItemView: View {
+    var topOffsetSafeArea: CGFloat = 0
     var body: some View {
-        CustomWeatherStackView {
+        CustomWeatherStackView(topOffsetSafeArea: topOffsetSafeArea) {
             Label {
                 Text("FEELS LIKE")
             } icon: {
@@ -30,6 +31,5 @@ struct DescriptionDetailWeatherItemView: View {
 struct DescriptionDetailWeatherItemView_Previews: PreviewProvider {
     static var previews: some View {
         DescriptionDetailWeatherItemView()
-
     }
 }

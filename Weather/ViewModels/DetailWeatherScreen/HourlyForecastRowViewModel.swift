@@ -8,46 +8,21 @@
 import Foundation
 
 class HourlyForecastRowViewModel {
-//    private let weatherModel: WeatherModel
-//
-//    private var temperature: Double {
-//        return weatherModel.current.tempC
-//    }
-//
-//    var hour: String {
-//        guard let forecaseFirstDay = weatherModel.forecast.forecastday.first else {
-//            return "Unknown"
-//        }
-//        return weatherModel.forecast.forecastday.fi
-//    }
-//
-//    var temperatureWithoutSign: String {
-//        return "\(abs(temperature).roundedSingleValue)°"
-//    }
-//
-//    var isNegativeTemperature: Bool {
-//        return temperature < 0
-//    }
-//
-//    var description: String {
-//        return weatherModel.current.condition.text
-//    }
-//
-//    var maxMinTemperature: String {
-//        guard let forecaseFirstDay = weatherModel.forecast.forecastday.first else {
-//            return "Unknown"
-//        }
-//        let max = forecaseFirstDay.day.maxtempC.roundedSingleValue
-//        let min = forecaseFirstDay.day.mintempC.roundedSingleValue
-//
-//        return "H: \(max)° L: \(min)°"
-//    }
-//
-//    var temperatureAndDescription: String {
-//        return "\(temperature) | \(description)"
-//    }
-//
-//    init(weatherModel: WeatherModel) {
-//        self.weatherModel = weatherModel
-//    }
+    private let hourlyForecastModel: WeatherModel.Forecast.Forecastday.Hour
+
+    var timeHour: String {
+        //return weatherModel.current.tempC
+        let timeSpan = hourlyForecastModel.timeEpoch
+        let date = Date(timeIntervalSince1970: timeSpan)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+        dateFormatter.timeZone = .current
+        let localDate = dateFormatter.string(from: date)
+
+        return "dsad"
+    }
+
+    init(hourlyForecastModel: WeatherModel.Forecast.Forecastday.Hour) {
+        self.hourlyForecastModel = hourlyForecastModel
+    }
 }

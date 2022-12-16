@@ -8,7 +8,7 @@
 import Foundation
 
 struct WeatherListModel {
-    private(set) var favoriteCities = ["Warsaw"]
+    private(set) var favoriteCities = ["Warsaw", "Brest", "London"]
 
     lazy var filteredCities: [String] = favoriteCities
 

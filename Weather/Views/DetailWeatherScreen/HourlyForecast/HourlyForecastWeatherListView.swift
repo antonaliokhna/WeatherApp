@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HourlyForecastWeatherListView: View {
     @State private var position: CGRect = CGRect()
+    var topOffsetSafeArea: CGFloat = 0
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading) {
@@ -35,7 +36,11 @@ struct HourlyForecastWeatherListView: View {
         }
         .background(.bar)
         .cornerRadius(16)
-        .offset(y: position.minY >= 144 ? 0 : -position.minY + 144)
+        .offset(
+            y: position.minY <= 80 + topOffsetSafeArea
+            ? -position.minY + 80 + topOffsetSafeArea
+            : 0
+        )
         .background(GeometryGetter(rect: $position))
 
 
@@ -43,6 +48,7 @@ struct HourlyForecastWeatherListView: View {
 }
 struct HourlyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
-        HourlyForecastWeatherListView()
+        DetailWeatherView()
+        //HourlyForecastWeatherListView(topSafeAreaEdge: 0)
     }
 }

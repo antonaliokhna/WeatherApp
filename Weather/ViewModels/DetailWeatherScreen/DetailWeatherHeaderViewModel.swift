@@ -7,11 +7,20 @@
 
 import Foundation
 
-class DetailWeatherHeaderViewModel {
+class DetailWeatherHeaderViewModel: ObservableObject {
     private let weatherModel: WeatherModel
 
-    private var temperature: Double {
+    private var temperatureDouble: Double {
         return weatherModel.current.tempC
+    }
+
+    var currentTime: String {
+        //TODO: - Write logic
+
+        return "12:00 pm"
+    }
+    var temperature: String {
+        return temperatureDouble.toRoundedNonfractionalStringValue
     }
 
     var cityName: String {
@@ -19,11 +28,11 @@ class DetailWeatherHeaderViewModel {
     }
 
     var temperatureWithoutSign: String {
-        return "\(abs(temperature).toRoundedNonfractionalStringValue)°"
+        return "\(abs(temperatureDouble).toRoundedNonfractionalStringValue)°"
     }
 
     var isNegativeTemperature: Bool {
-        return temperature < 0
+        return temperatureDouble < 0
     }
 
     var description: String {

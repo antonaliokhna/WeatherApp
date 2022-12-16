@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct DetailWeatherContentView: View {
-    @StateObject var weatherViewModel: WeatherViewModel
     @State var topSafeAreaEdge: CGFloat
     @State private var hourlyForecastBlock: CGRect = CGRect()
+
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     var body: some View {
         ZStack {
-            switch weatherViewModel.status {
+            switch self.weatherViewModel.status {
             case .loading:
                 VStack(alignment: .center, spacing: 32) {
                     ProgressView()
@@ -24,25 +25,25 @@ struct DetailWeatherContentView: View {
                         .font(.title2)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.top, topSafeAreaEdge * 4)
 
             case .sucsess:
                 ScrollView(showsIndicators: false)  {
                     VStack(spacing: 16) {
                         DetailWeatherHeaderView(
                             detailWeatherHeaderViewModel:
-                                weatherViewModel.detailHeaderVideModel,
+                                weatherViewModel.detailHeaderVideModel1!,
                             topSafeAreaEdge: topSafeAreaEdge,
                             hourlyForecastPosition: $hourlyForecastBlock
                         )
+                        .padding(.bottom, topSafeAreaEdge * 2)
 
-                        HourlyForecastWeatherListView()
+                        HourlyForecastWeatherListView(topOffsetSafeArea: topSafeAreaEdge)
                             .background(GeometryGetter(rect: $hourlyForecastBlock))
 
                         DailyForecastWeatherListView(
-                            dailyForecastViewModel: weatherViewModel.dailyForecastViewModels
+                            dailyForecastViewModel: weatherViewModel.dailyForecastViewModels, topOffsetSafeArea: topSafeAreaEdge
                         )
-                        DescriptionDetailWeatherCollectionView()
+                        DescriptionDetailWeatherCollectionView(topOffsetSafeArea: topSafeAreaEdge)
                     }
                     .shadow(
                         color: (colorScheme == .dark ? Color.white : Color.black)
@@ -65,23 +66,21 @@ struct DetailWeatherContentView: View {
                         .multilineTextAlignment(.center)
 
                     Button {
-                        weatherViewModel.retryFetchWeatherModel()
+                        self.weatherViewModel.retryFetchWeatherModel()
                     } label: {
                         Text("Retry")
                     }
-
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.top, topSafeAreaEdge * 4)
             }
         }
-        .padding(.top, topSafeAreaEdge)
         .padding([.horizontal])
     }
 }
 
 struct DetailWeatherContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
+        DetailWeatherView()
+            .environmentObject(WeatherViewModel(cityName: "Minsk"))
     }
 }

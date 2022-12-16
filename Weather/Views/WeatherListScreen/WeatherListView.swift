@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct WeatherListView: View {
-    @ObservedObject private var viewModel = WeatherListViewModel()
-    @Environment(\.dismissSearch) private var dismissSearch
-    @Environment(\.dismiss) private var dismiss
+    @StateObject private var viewModel = WeatherListViewModel()
+    @EnvironmentObject var weather: WeatherViewModel
+    @Environment(\.dismiss) var dismiss
+
     @State var isPresentedLa: Bool = false
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(viewModel.weatherViewModels, id: \.self) { weatherViewModel in
-                        NavigationLink {
-                            DetailWeatherView(weatherViewModel: weatherViewModel)
-                                .navigationBarBackButtonHidden(true)
+                    ForEach(viewModel.weatherFavoriteCities, id: \.self) { cityName in
+                        Button {
+                            //isPresentedLa.toggle()
+                            self.weather.selectNewCity(cityName: cityName)
+                            dismiss()
                         } label: {
-                            WeatherCityRowView(
-                                viewModel: weatherViewModel
-                            )
+                            Text(cityName)
                         }
                         .listRowInsets(EdgeInsets())
                         .padding(.horizontal)
@@ -37,35 +37,44 @@ struct WeatherListView: View {
                 ) {
                     ForEach(viewModel.searchCitiesNames, id: \.self) { cityName in
                         Button {
-                            viewModel.addFavoriteCity(name: cityName)
-                            //dismissSearch()
+                            viewModel.currentSearchCity = cityName
+                            //viewModel.addFavoriteCity(name: cityName)
                             isPresentedLa.toggle()
                         } label: {
                             Text(cityName)
                         }
                         .font(.title3)
                         .foregroundColor(.gray)
-
-                        .sheet(isPresented: $isPresentedLa) {
-//                            NavigationView {
-//                                DetailWeatherContentView(
-//                                    topSafeAreaEdge: 60)
-//                                    .toolbar {
-//                                        ToolbarItem(placement: .cancellationAction) {
-//                                            Button("Cancel", action: {})
-//                                        }
-//                                        ToolbarItem(placement: .confirmationAction) {
-//                                            Button("Add", action: {})
-//                                        }
-//                                    }
-//                            }
-                        }
                     }
                 }
                 .scrollIndicators(.hidden)
+                .sheet(isPresented: $isPresentedLa) {
+                    let weatherViewModel = WeatherViewModel(
+                        cityName: viewModel.currentSearchCity
+                    )
+                    GeometryReader { geometry in
+                        NavigationView {
+                            DetailWeatherContentView(topSafeAreaEdge: geometry.size.height * 0.2)
+                                .toolbar {
+                                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                                        Button("Cancel") {
+                                            isPresentedLa.toggle()
+                                        }
+                                    }
+
+                                    ToolbarItem(placement: .navigationBarTrailing) {
+                                        Button("Add") {
+                                            viewModel.addFavoriteCity(name: viewModel.currentSearchCity)
+                                            isPresentedLa.toggle()
+                                        }
+                                    }
+                                }
+                                .environmentObject(weatherViewModel)
+                        }
+                    }
+                }
             }
             .navigationTitle(Text("Weather"))
-
         }
     }
 }
@@ -74,5 +83,6 @@ struct WeatherListView: View {
 struct WeatherListView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherListView()
+            .environmentObject(WeatherViewModel(cityName: "Minsk"))
     }
 }
