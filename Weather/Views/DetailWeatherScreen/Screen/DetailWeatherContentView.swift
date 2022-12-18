@@ -46,7 +46,11 @@ struct DetailWeatherContentView: View {
                         DailyForecastWeatherListView(
                             dailyForecastViewModel: weatherViewModel.dailyForecastViewModels, topOffsetSafeArea: topSafeAreaEdge
                         )
-                        DescriptionDetailWeatherCollectionView(topOffsetSafeArea: topSafeAreaEdge)
+
+                        DescriptionDetailWeatherCollectionView(
+                            viewModel: weatherViewModel.descriptionDetailViewModel!,
+                            topOffsetSafeArea: topSafeAreaEdge
+                        )
                     }
                     .shadow(
                         color: (colorScheme == .dark ? Color.white : Color.black)

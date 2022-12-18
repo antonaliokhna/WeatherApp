@@ -20,6 +20,7 @@ class WeatherViewModel: ObservableObject {
     @Published var detailHeaderVideModel: DetailWeatherHeaderViewModel?
     @Published var dailyForecastViewModels: [DailyForecastWeatherViewModel] = []
     @Published var hourlyForecastWeatherListViewModel : HourlyForecastWeatherListViewModel?
+    @Published var descriptionDetailViewModel: DescriptionItemCollectionViewModel?
 
     init(cityName: String) {
         self.cityName = cityName
@@ -33,6 +34,7 @@ class WeatherViewModel: ObservableObject {
         self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
         self.dailyForecastViewModels = viewModel.dailyForecastViewModels
         self.hourlyForecastWeatherListViewModel = viewModel.hourlyForecastWeatherListViewModel
+        self.descriptionDetailViewModel = viewModel.descriptionDetailViewModel
     }
     
     func retryFetchWeatherModel() {
@@ -51,7 +53,7 @@ extension WeatherViewModel {
             switch result {
             case .success(let model):
                 self.weatherModel.send(model)
-                self.status = .sucsess
+
                 self.cityName = model.location.name
                 self.status = .sucsess
 
@@ -71,6 +73,12 @@ extension WeatherViewModel {
                     weatherModel: model
                 )
 
+                self.descriptionDetailViewModel =
+                DescriptionItemCollectionViewModel(
+                    currentWeatherModel: model.current
+                )
+
+                self.status = .sucsess
             case .failure(let error):
                 self.weatherModel.send(completion: .failure(error))
                 self.status = .failed(status: error)

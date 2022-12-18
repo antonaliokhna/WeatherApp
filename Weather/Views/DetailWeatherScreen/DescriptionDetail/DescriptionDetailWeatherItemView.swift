@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct DescriptionDetailWeatherItemView: View {
-    var topOffsetSafeArea: CGFloat = 0
+    @StateObject var viewModel: DescriptionItemViewModel
+    
+    let topOffsetSafeArea: CGFloat
     var body: some View {
         CustomWeatherStackView(topOffsetSafeArea: topOffsetSafeArea) {
             Label {
-                Text("FEELS LIKE")
+                Text(viewModel.textLabel)
             } icon: {
-                Image(systemName: "thermometer")
+                Image(systemName: viewModel.imageLabel)
             }
         } contentView: {
-            Text("-5°")
+            Text("\(viewModel.value)")
                 .font(.system(size: 40))
 
             Spacer()
-            Text("Wind is making it feel colder.")
+            Text(viewModel.description)
                 .font(.subheadline)
         }
         .frame(height: 176)
@@ -30,6 +32,14 @@ struct DescriptionDetailWeatherItemView: View {
 
 struct DescriptionDetailWeatherItemView_Previews: PreviewProvider {
     static var previews: some View {
-        DescriptionDetailWeatherItemView()
+        DescriptionDetailWeatherItemView(
+            viewModel: DescriptionItemViewModel(
+                textLabel: "Some value",
+                imageLabel: "Cloud",
+                value: "-11°",
+                description: "Some text"
+            ),
+            topOffsetSafeArea: 0
+        )
     }
 }

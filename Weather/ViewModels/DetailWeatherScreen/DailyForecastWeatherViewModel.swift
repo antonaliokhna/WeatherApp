@@ -56,8 +56,10 @@ extension DailyForecastWeatherViewModel: Hashable {
     public func hash(into hasher: inout Hasher) {
         return hasher.combine(identifier)
     }
-    static func == (lhs: DailyForecastWeatherViewModel, rhs: DailyForecastWeatherViewModel) -> Bool {
-        //TODO: - Fix logic
-        return false
+    static func == (
+        lhs: DailyForecastWeatherViewModel,
+        rhs: DailyForecastWeatherViewModel
+    ) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }

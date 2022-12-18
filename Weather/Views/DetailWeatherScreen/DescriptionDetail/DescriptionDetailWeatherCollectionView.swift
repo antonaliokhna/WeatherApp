@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct DescriptionDetailWeatherCollectionView: View {
-    var topOffsetSafeArea: CGFloat = 0
+    @StateObject var viewModel: DescriptionItemCollectionViewModel
+    let topOffsetSafeArea: CGFloat
     private let gridItemLayout = Array(
         repeating: GridItem(.flexible()),
         count: 2
     )
-
-    let viewModels = [1,2,3,4,5,6,7,8,9] //Test
     var body: some View {
         LazyVGrid(columns: gridItemLayout) {
-            ForEach(viewModels, id: \.self) { _ in
-                DescriptionDetailWeatherItemView(topOffsetSafeArea: topOffsetSafeArea)
+            //TODO: - AAAAAAAA Its Crutch!!!
+            ForEach(0..<viewModel.descriptionItemsViewModel.count) { _ in
+                DescriptionDetailWeatherItemView(
+                    viewModel: viewModel.getDescriptionItemViewModel(),
+                    topOffsetSafeArea: topOffsetSafeArea
+                )
             }
         }
     }
@@ -26,6 +29,6 @@ struct DescriptionDetailWeatherCollectionView: View {
 
 struct DescriptionDetailWeatherCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        DescriptionDetailWeatherCollectionView()
+        DetailWeatherView()
     }
 }
