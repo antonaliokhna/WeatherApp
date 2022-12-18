@@ -36,10 +36,10 @@ struct WeatherListView: View {
                 }
                 .listStyle(.inset)
                 .searchable(
-                    text: $viewModel.filterCityText,
+                    text: $viewModel.searchCityText,
                     prompt: Text("Search for a city")
                 ) {
-                    ForEach(viewModel.searchCitiesNames, id: \.self) {
+                    ForEach(viewModel.searchCitiesName, id: \.self) {
                         cityName in
                         Button {
                             viewModel.selectedCityName = cityName
@@ -78,7 +78,7 @@ struct WeatherListView: View {
                             }
                         }
                         .environmentObject(
-                            viewModel.createNewWeahetViewModelBySelectedCityName()
+                            viewModel.createOrLoadWeahetViewModelBySelectedCity()
                         )
                     }
                 }

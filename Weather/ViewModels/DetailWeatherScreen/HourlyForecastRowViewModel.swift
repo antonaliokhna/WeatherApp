@@ -13,11 +13,9 @@ class HourlyForecastRowViewModel: ObservableObject {
     lazy private var timeHourDate: String = {
         let date = Date(timeIntervalSince1970: hourlyForecastModel.timeEpoch)
         let dateFormatter = DateFormatter()
-        print(date)
         dateFormatter.dateFormat = "h a"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         let localDate = dateFormatter.string(from: date)
-        print(localDate)
         return localDate
     }()
 

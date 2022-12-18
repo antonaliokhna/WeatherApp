@@ -28,7 +28,7 @@ class DetailWeatherHeaderViewModel: ObservableObject {
     }
 
     var temperature: String {
-        return temperatureDouble.toRoundedNonfractionalStringValue
+        return "\(temperatureDouble.toRoundedNonfractionalStringValue)°"
     }
 
     var cityName: String {

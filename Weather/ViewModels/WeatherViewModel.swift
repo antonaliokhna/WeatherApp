@@ -71,10 +71,8 @@ extension WeatherViewModel {
                     weatherModel: model
                 )
 
-                print("Sucsess result")
             case .failure(let error):
                 self.weatherModel.send(completion: .failure(error))
-                print("Erorr result")
                 self.status = .failed(status: error)
             }
         }

@@ -31,6 +31,5 @@ class HourlyForecastWeatherListViewModel: ObservableObject {
         }
 
         self.hourlyForecastRowViewModels = temp
-        print(temp.count)
     }
 }
