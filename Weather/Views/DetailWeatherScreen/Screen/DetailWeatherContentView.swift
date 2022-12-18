@@ -15,6 +15,8 @@ struct DetailWeatherContentView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     var body: some View {
         ZStack {
+            WeatherBackroundView()
+
             switch self.weatherViewModel.status {
             case .loading:
                 VStack(alignment: .center, spacing: 32) {
@@ -35,6 +37,7 @@ struct DetailWeatherContentView: View {
                             topSafeAreaEdge: topSafeAreaEdge,
                             hourlyForecastPosition: $hourlyForecastBlock
                         )
+                        .foregroundColor(.white)
                         .padding(.bottom, topSafeAreaEdge * 2)
 
                         HourlyForecastWeatherListView(
@@ -58,6 +61,7 @@ struct DetailWeatherContentView: View {
                             topOffsetSafeArea: topSafeAreaEdge
                         )
                     }
+                    .padding([.horizontal])
                     .shadow(
                         color: (colorScheme == .dark
                                 ? Color.white
@@ -78,7 +82,6 @@ struct DetailWeatherContentView: View {
                         .fontWeight(.medium)
 
                     Text(error.errorDescription!)
-                        .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
 
                     Button {
@@ -86,11 +89,13 @@ struct DetailWeatherContentView: View {
                     } label: {
                         Text("Retry")
                     }
+                    .buttonStyle(.bordered)
+
                 }
-                .frame(maxWidth: .infinity)
+                .padding([.horizontal])
             }
         }
-        .padding([.horizontal])
+        .foregroundColor(colorScheme == .dark ? .white : .black)
     }
 }
 
