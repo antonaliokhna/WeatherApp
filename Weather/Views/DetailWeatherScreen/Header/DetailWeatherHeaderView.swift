@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailWeatherHeaderView: View {
-    var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel
+    var detailWeatherHeaderViewModel: WeatherHeaderViewModel
     var topSafeAreaEdge: CGFloat
 
     @State private var position: CGRect = CGRect()
@@ -74,7 +74,11 @@ struct DetailWeatherHeaderView: View {
                 ))
         }
         .offset(y: topSafeAreaEdge)
-        .offset(y: topOffset < 0 ? -topOffset : (-topOffset / UIScreen.main.bounds.width) * 100)
+        .offset(
+            y: topOffset < 0
+            ? -topOffset
+            : (-topOffset / UIScreen.main.bounds.width) * 100
+        )
         .offset(y: getOffset())
         .background(GeometryGetter(rect: $position))
     }

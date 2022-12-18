@@ -8,7 +8,7 @@
 import Foundation
 
 struct WeatherListModel {
-    private(set) var favoriteCities = ["Warsaw", "Brest", "London"]
+    private(set) var favoriteCities = ["Warsaw", "Bucharest", "Martuni", "Shah Alam", "Karmie", "Budapest", "Munich", "Netivot"]
 
     mutating func addFavoriteCity(name: String) {
         favoriteCities.append(name)

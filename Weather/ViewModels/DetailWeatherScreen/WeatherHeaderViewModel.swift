@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DetailWeatherHeaderViewModel: ObservableObject {
+class WeatherHeaderViewModel: ObservableObject {
     private let weatherModel: WeatherModel
 
     private var temperatureDouble: Double {
@@ -48,11 +48,14 @@ class DetailWeatherHeaderViewModel: ObservableObject {
     }
 
     var maxMinTemperature: String {
-        guard let forecaseFirstDay = weatherModel.forecast.forecastday.first else {
+        guard let forecaseFirstDay = weatherModel.forecast
+            .forecastday.first else {
             return "Unknown"
         }
-        let max = forecaseFirstDay.day.maxtempC.toRoundedNonfractionalStringValue
-        let min = forecaseFirstDay.day.mintempC.toRoundedNonfractionalStringValue
+        let max = forecaseFirstDay.day.maxtempC
+            .toRoundedNonfractionalStringValue
+        let min = forecaseFirstDay.day.mintempC
+            .toRoundedNonfractionalStringValue
 
         return "H: \(max)° L: \(min)°"
     }

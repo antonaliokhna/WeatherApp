@@ -38,23 +38,32 @@ struct DetailWeatherContentView: View {
                         .padding(.bottom, topSafeAreaEdge * 2)
 
                         HourlyForecastWeatherListView(
-                            viewModel: weatherViewModel.hourlyForecastWeatherListViewModel!,
+                            viewModel:
+                                weatherViewModel
+                                .hourlyForecastWeatherListViewModel!,
                             topOffsetSafeArea: topSafeAreaEdge
                         )
                         .background(GeometryGetter(rect: $hourlyForecastBlock))
 
                         DailyForecastWeatherListView(
-                            dailyForecastViewModel: weatherViewModel.dailyForecastViewModels, topOffsetSafeArea: topSafeAreaEdge
+                            dailyForecastViewModel:
+                                weatherViewModel
+                                .dailyForecastViewModels,
+                            topOffsetSafeArea: topSafeAreaEdge
                         )
 
                         DescriptionDetailWeatherCollectionView(
-                            viewModel: weatherViewModel.descriptionDetailViewModel!,
+                            viewModel:
+                                weatherViewModel.descriptionDetailViewModel!,
                             topOffsetSafeArea: topSafeAreaEdge
                         )
                     }
                     .shadow(
-                        color: (colorScheme == .dark ? Color.white : Color.black)
-                            .opacity(0.2),
+                        color: (colorScheme == .dark
+                                ? Color.white
+                                : Color.black
+                               )
+                        .opacity(0.2),
                         radius: 1
                     )
                 }

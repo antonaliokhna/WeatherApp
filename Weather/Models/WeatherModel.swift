@@ -52,6 +52,8 @@ struct WeatherModel: Codable {
         struct Forecastday: Codable {
             let dateEpoch: Double
             let day: Day
+            let astro: Astro
+            let hour: [Hour]
 
             struct Day: Codable {
                 let maxtempC: Double
@@ -76,8 +78,6 @@ struct WeatherModel: Codable {
                 let uv: Int
             }
 
-            let astro: Astro
-
             struct Astro: Codable {
                 let sunrise: String
                 let sunset: String
@@ -86,8 +86,6 @@ struct WeatherModel: Codable {
                 let moonPhase: String
                 let moonIllumination: String
             }
-
-            let hour: [Hour]
 
             struct Hour: Codable {
                 let timeEpoch: Double
@@ -121,7 +119,8 @@ struct WeatherModel: Codable {
                 let visMiles: Int
                 let gustMph: Double
                 let gustKph: Double
-                let uv: Int            }
+                let uv: Int
+            }
         }
     }
 }

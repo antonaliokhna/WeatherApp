@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherCityRowView: View {
-    var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel?
+    var detailWeatherHeaderViewModel: WeatherHeaderViewModel?
     var cityName: String
     var body: some View {
         HStack {

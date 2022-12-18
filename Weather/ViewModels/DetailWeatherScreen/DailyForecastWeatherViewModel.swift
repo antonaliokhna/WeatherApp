@@ -30,13 +30,15 @@ class DailyForecastWeatherViewModel {
     }
 
     var minDayTemperature: String {
-        let min = weathderForecustDay.day.mintempC.toRoundedNonfractionalStringValue
+        let min = weathderForecustDay.day.mintempC
+            .toRoundedNonfractionalStringValue
 
         return "\(min)°"
     }
 
     var maxDayTemperature: String {
-        let max = weathderForecustDay.day.maxtempC.toRoundedNonfractionalStringValue
+        let max = weathderForecustDay.day.maxtempC
+            .toRoundedNonfractionalStringValue
 
         return "\(max)°"
     }

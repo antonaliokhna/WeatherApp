@@ -17,9 +17,9 @@ class WeatherViewModel: ObservableObject {
     @Published var status: NetworkStatuses = .loading
     @Published var cityName: String = "--"
 
-    @Published var detailHeaderVideModel: DetailWeatherHeaderViewModel?
+    @Published var detailHeaderVideModel: WeatherHeaderViewModel?
     @Published var dailyForecastViewModels: [DailyForecastWeatherViewModel] = []
-    @Published var hourlyForecastWeatherListViewModel : HourlyForecastWeatherListViewModel?
+    @Published var hourlyForecastWeatherListViewModel: HourlyForecastWeatherListViewModel?
     @Published var descriptionDetailViewModel: DescriptionItemCollectionViewModel?
 
     init(cityName: String) {
@@ -33,7 +33,8 @@ class WeatherViewModel: ObservableObject {
         self.weatherModel = viewModel.weatherModel
         self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
         self.dailyForecastViewModels = viewModel.dailyForecastViewModels
-        self.hourlyForecastWeatherListViewModel = viewModel.hourlyForecastWeatherListViewModel
+        self.hourlyForecastWeatherListViewModel =
+        viewModel.hourlyForecastWeatherListViewModel
         self.descriptionDetailViewModel = viewModel.descriptionDetailViewModel
     }
     
@@ -69,7 +70,7 @@ extension WeatherViewModel {
                     )
                 )
 
-                self.detailHeaderVideModel = DetailWeatherHeaderViewModel(
+                self.detailHeaderVideModel = WeatherHeaderViewModel(
                     weatherModel: model
                 )
 
