@@ -24,7 +24,7 @@ struct WeatherListView: View {
                             dismiss()
                         } label: {
                             WeatherCityRowView(
-                                detailWeatherHeaderViewModel:
+                                headerViewModel:
                                     viewModel.detailHeaderVideModel,
                                 cityName: viewModel.cityName
                             )

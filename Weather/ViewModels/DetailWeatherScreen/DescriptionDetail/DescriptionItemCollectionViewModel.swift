@@ -19,10 +19,10 @@ class DescriptionItemCollectionViewModel: ObservableObject {
             self.getWindDegree(),
             self.getWindDegree(),
             self.getAirHumidity(),
-            self.getCloudy(),
             self.getPressureMb(),
             self.getVisibleMiles(),
             self.getPrecipitationMm(),
+            self.getCloudy(),
         ]
     }
 
@@ -36,10 +36,13 @@ class DescriptionItemCollectionViewModel: ObservableObject {
 //MARK: - Gettable private functions
 extension DescriptionItemCollectionViewModel {
     private func getWindMph() -> DescriptionItemViewModel {
+        let value = currentWeatherModel.windMph
+            .toRoundedNonfractionalStringValue
+
         return DescriptionItemViewModel(
             textLabel: "Wind speed",
             imageLabel: "wind",
-            value: currentWeatherModel.windMph.toRoundedNonfractionalStringValue,
+            value: value,
             description: "Calm northeast wind, gusty in some places."
         )
     }
@@ -66,7 +69,8 @@ extension DescriptionItemCollectionViewModel {
         return DescriptionItemViewModel(
             textLabel: "Precipitation",
             imageLabel: "water.waves",
-            value: currentWeatherModel.precipMm.toRoundedNonfractionalStringValue,
+            value: currentWeatherModel.precipMm
+                .toRoundedNonfractionalStringValue,
             description: "Amount of precipitation in millimeters."
         )
     }
@@ -90,11 +94,12 @@ extension DescriptionItemCollectionViewModel {
     }
 
     private func getVisibleMiles() -> DescriptionItemViewModel {
+        let value = currentWeatherModel.feelslikeC
+            .toRoundedNonfractionalStringValue
         return DescriptionItemViewModel(
             textLabel: "Visible",
             imageLabel: "eye.fill",
-            value:
-                "\(currentWeatherModel.feelslikeC.toRoundedNonfractionalStringValue)°",
+            value: "\(value)°",
             description: "Average visibility range."
         )
     }

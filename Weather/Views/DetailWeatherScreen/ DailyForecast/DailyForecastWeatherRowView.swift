@@ -32,9 +32,11 @@ struct DailyForecastWeatherRowView: View {
             HStack() {
                 Text(dayForecastViewModel.minDayTemperature)
                     .foregroundColor(.gray)
+                    .frame(width: 40)
 
                 Spacer()
                 Text(dayForecastViewModel.maxDayTemperature)
+                    .frame(width: 40, alignment: .center)
             }
             .font(.title3)
             .frame(width: 104, alignment: .trailing)

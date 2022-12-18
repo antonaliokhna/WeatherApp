@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherCityRowView: View {
-    var detailWeatherHeaderViewModel: WeatherHeaderViewModel?
+    var headerViewModel: WeatherHeaderViewModel?
     var cityName: String
     var body: some View {
         HStack {
@@ -16,12 +16,12 @@ struct WeatherCityRowView: View {
                 Text(cityName)
                     .font(.title)
 
-                Text(self.detailWeatherHeaderViewModel?.currentTime ?? "")
+                Text(self.headerViewModel?.currentTime ?? "")
                     .font(.footnote)
                     .foregroundColor(.gray)
 
                 Spacer()
-                Text(detailWeatherHeaderViewModel?.description ?? "")
+                Text(headerViewModel?.description ?? "")
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
@@ -29,13 +29,13 @@ struct WeatherCityRowView: View {
 
             Spacer()
             VStack(alignment: .trailing) {
-                Text(detailWeatherHeaderViewModel?.temperature ?? "")
+                Text(headerViewModel?.temperature ?? "")
                     .font(.system(size: 40))
                     .fontWeight(.light)
 
                 Spacer()
 
-                Text(detailWeatherHeaderViewModel?.maxMinTemperature ?? "")
+                Text(headerViewModel?.maxMinTemperature ?? "")
                     .font(.subheadline)
             }
         }

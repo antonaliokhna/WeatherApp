@@ -29,7 +29,6 @@ class WeatherListViewModel: ObservableObject {
 
     var selectedCityName: String = "" {
         didSet {
-            print("\(selectedCityName) COPY")
             guard !selectedCityName.isEmpty else { return }
             if let viewModel = favoriteWeatherViewModels.first(
                 where: { viewModel in

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct DetailWeatherView: View {
-    @StateObject var weatherViewModel: WeatherViewModel = WeatherViewModel(cityName: "Minsk")
+    //Start city (todo: Use UserDefaults)
+    @StateObject var weatherViewModel: WeatherViewModel =
+        WeatherViewModel(cityName: "Minsk")
     var body: some View {
         GeometryReader  { geometryReader in
             NavigationView {

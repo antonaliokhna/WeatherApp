@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HourlyForecastWeatherListView: View {
-    @StateObject var viewModel: HourlyForecastWeatherListViewModel
+    @StateObject var hourlyListViewModel: HourlyForecastWeatherListViewModel
     let topOffsetSafeArea: CGFloat
 
     @State private var position: CGRect = CGRect()
@@ -30,10 +30,13 @@ struct HourlyForecastWeatherListView: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(viewModel.hourlyForecastRowViewModels, id: \.self) {
+                    ForEach(
+                        hourlyListViewModel.hourlyForecastRowViewModels,
+                        id: \.self
+                    ) {
                         viewModel in
                         HourlyForecastWeatherRowView(
-                            rowViewModel: viewModel
+                            hourlyRowViewModel: viewModel
                         )
                     }
                 }

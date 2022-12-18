@@ -6,13 +6,10 @@
 //
 
 import Foundation
-import Combine
 
 class WeatherViewModel: ObservableObject {
     private let dataFetcher = DataFecherService()
-
-    private var weatherModel = CurrentValueSubject<WeatherModel?, NetworkError>(nil)
-    private var cancellables = Set<AnyCancellable>()
+    private var weatherModel: WeatherModel?
 
     @Published var status: NetworkStatuses = .loading
     @Published var cityName: String = "--"
@@ -32,9 +29,9 @@ class WeatherViewModel: ObservableObject {
         self.status = viewModel.status
         self.weatherModel = viewModel.weatherModel
         self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
-        self.dailyForecastViewModels = viewModel.dailyForecastViewModels
         self.hourlyForecastWeatherListViewModel =
         viewModel.hourlyForecastWeatherListViewModel
+        self.dailyForecastViewModels = viewModel.dailyForecastViewModels
         self.descriptionDetailViewModel = viewModel.descriptionDetailViewModel
     }
     
@@ -50,39 +47,40 @@ extension WeatherViewModel {
         dataFetcher.fetchWeatherModelData(
             cityName: cityName,
             countDayforecast: 7
-        ) { result in
+        ) { [weak self] result in
             switch result {
             case .success(let model):
-                self.weatherModel.send(model)
-
-                self.cityName = model.location.name
-                self.status = .sucsess
-
-                self.dailyForecastViewModels = model.forecast.forecastday.map {
-                    DailyForecastWeatherViewModel(weathderForecustDay: $0)
-                }
-
-                self.hourlyForecastWeatherListViewModel =
-                HourlyForecastWeatherListViewModel(
-                    weatherForecastDay: model.forecast.forecastday,
-                    currentDate: model.location.localtimeEpoch.timeSpanToDate
-                )
-
-                self.detailHeaderVideModel = WeatherHeaderViewModel(
-                    weatherModel: model
-                )
-
-                self.descriptionDetailViewModel =
-                DescriptionItemCollectionViewModel(
-                    currentWeatherModel: model.current
-                )
-
-                self.status = .sucsess
+                self?.setValuesByWeathe(model: model)
             case .failure(let error):
-                self.weatherModel.send(completion: .failure(error))
-                self.status = .failed(status: error)
+                self?.status = .failed(status: error)
             }
         }
+    }
+
+    private func setValuesByWeathe(model: WeatherModel) {
+        self.cityName = model.location.name
+        self.status = .sucsess
+
+        self.dailyForecastViewModels = model.forecast.forecastday.map {
+            DailyForecastWeatherViewModel(weathderForecustDay: $0)
+        }
+
+        self.hourlyForecastWeatherListViewModel =
+        HourlyForecastWeatherListViewModel(
+            weatherForecastDay: model.forecast.forecastday,
+            currentDate: model.location.localtimeEpoch.timeSpanToDate
+        )
+
+        self.detailHeaderVideModel = WeatherHeaderViewModel(
+            weatherModel: model
+        )
+
+        self.descriptionDetailViewModel =
+        DescriptionItemCollectionViewModel(
+            currentWeatherModel: model.current
+        )
+
+        self.status = .sucsess
     }
 }
 

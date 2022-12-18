@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DescriptionDetailWeatherCollectionView: View {
-    @StateObject var viewModel: DescriptionItemCollectionViewModel
+    @StateObject var descriptionItemCollectionViewModel: DescriptionItemCollectionViewModel
     let topOffsetSafeArea: CGFloat
     private let gridItemLayout = Array(
         repeating: GridItem(.flexible()),
@@ -17,9 +17,13 @@ struct DescriptionDetailWeatherCollectionView: View {
     var body: some View {
         LazyVGrid(columns: gridItemLayout) {
             //TODO: - AAAAAAAA Its Crutch!!!
-            ForEach(0..<viewModel.descriptionItemsViewModel.count) { _ in
+            ForEach(
+                0..<descriptionItemCollectionViewModel
+                    .descriptionItemsViewModel.count
+            ) { _ in
                 DescriptionDetailWeatherItemView(
-                    viewModel: viewModel.getDescriptionItemViewModel(),
+                    descriptionItemViewModel: descriptionItemCollectionViewModel
+                        .getDescriptionItemViewModel(),
                     topOffsetSafeArea: topOffsetSafeArea
                 )
             }

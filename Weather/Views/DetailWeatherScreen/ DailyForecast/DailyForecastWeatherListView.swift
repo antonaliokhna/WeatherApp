@@ -36,7 +36,7 @@ struct DailyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
         DetailWeatherView(
             weatherViewModel:
-                WeatherViewModel(cityName: "Moscow")
+                WeatherViewModel(cityName: "Minsk")
         )
     }
 }

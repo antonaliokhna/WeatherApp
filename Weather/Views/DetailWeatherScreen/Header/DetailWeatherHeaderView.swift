@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailWeatherHeaderView: View {
-    var detailWeatherHeaderViewModel: WeatherHeaderViewModel
+    var headerViewModel: WeatherHeaderViewModel
     var topSafeAreaEdge: CGFloat
 
     @State private var position: CGRect = CGRect()
@@ -26,11 +26,11 @@ struct DetailWeatherHeaderView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            Text(detailWeatherHeaderViewModel.cityName)
+            Text(headerViewModel.cityName)
                 .font(.largeTitle)
 
             ZStack(alignment: .top) {
-                Text(detailWeatherHeaderViewModel.temperatureAndDescription)
+                Text(headerViewModel.temperatureAndDescription)
                     .font(.title3)
                     .background(GeometryGetter(
                         rect: $weatherAndTemperatureBlock)
@@ -45,10 +45,10 @@ struct DetailWeatherHeaderView: View {
                     )
 
                 HStack {
-                    if detailWeatherHeaderViewModel.isNegativeTemperature {
+                    if headerViewModel.isNegativeTemperature {
                         Text("-")
                     }
-                    Text(detailWeatherHeaderViewModel.temperatureWithoutSign)
+                    Text(headerViewModel.temperatureWithoutSign)
                 }
                 .font(.system(size: 72, weight: .light))
                 .background(GeometryGetter(rect: $temperatureBlock))
@@ -58,14 +58,14 @@ struct DetailWeatherHeaderView: View {
             }
             //Text(topOffset.description)
 
-            Text(detailWeatherHeaderViewModel.description)
+            Text(headerViewModel.description)
                 .font(.title2)
                 .background(GeometryGetter(rect: $weatherBlock))
                 .opacity(getDifferenceOpacity(
                     currentValue: weatherBlock.maxY
                 ))
 
-            Text(detailWeatherHeaderViewModel.maxMinTemperature)
+            Text(headerViewModel.maxMinTemperature)
                 .font(.title2)
                 .fontWeight(.light)
                 .background(GeometryGetter(rect: $coordinatesBlock))

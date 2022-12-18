@@ -30,7 +30,7 @@ struct DetailWeatherContentView: View {
                 ScrollView(showsIndicators: false)  {
                     VStack(spacing: 16) {
                         DetailWeatherHeaderView(
-                            detailWeatherHeaderViewModel:
+                            headerViewModel:
                                 weatherViewModel.detailHeaderVideModel!,
                             topSafeAreaEdge: topSafeAreaEdge,
                             hourlyForecastPosition: $hourlyForecastBlock
@@ -38,7 +38,7 @@ struct DetailWeatherContentView: View {
                         .padding(.bottom, topSafeAreaEdge * 2)
 
                         HourlyForecastWeatherListView(
-                            viewModel:
+                            hourlyListViewModel:
                                 weatherViewModel
                                 .hourlyForecastWeatherListViewModel!,
                             topOffsetSafeArea: topSafeAreaEdge
@@ -53,7 +53,7 @@ struct DetailWeatherContentView: View {
                         )
 
                         DescriptionDetailWeatherCollectionView(
-                            viewModel:
+                            descriptionItemCollectionViewModel:
                                 weatherViewModel.descriptionDetailViewModel!,
                             topOffsetSafeArea: topSafeAreaEdge
                         )
