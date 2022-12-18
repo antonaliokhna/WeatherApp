@@ -14,6 +14,7 @@ protocol Networkign {
 
     func request(
         stringUrl: String,
+        parameters: Parameters,
         completion: @escaping completionHandlerWitchOptionalDataOrAFError
     )
 }

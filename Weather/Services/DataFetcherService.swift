@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import Alamofire
 
 class DataFecherService {
+    typealias Parameters = [String: Any]
 
     private let apiKey = "API_KEY"
 
@@ -20,20 +20,37 @@ class DataFecherService {
 
     func fetchWeatherModelData(
         cityName: String,
-        coundDaysforecast: Int,
+        countDayforecast: Int,
         completion: @escaping (Result<WeatherModel, NetworkError>) -> Void
     ) {
-        let stringUrl = "https://api.weatherapi.com/v1/forecast.json?key=\(apiKey)&q=\(cityName)&days=\(coundDaysforecast)"
+        let stringUrl = "https://api.weatherapi.com/v1/forecast.json?"
+        let paremeters: Parameters = [
+            "key": self.apiKey,
+            "q": cityName,
+            "days": countDayforecast,
+        ]
 
-        self.dataFetcher.fetchGenericJSONData(stringUrl: stringUrl, response: completion)
+        self.dataFetcher.fetchGenericJSONData(
+            stringUrl: stringUrl,
+            parameters: paremeters,
+            response: completion
+        )
     }
 
     func searchCityWeather(
         cityName: String,
         completion: @escaping (Result<[SearchCityWeatherModel], NetworkError>) -> Void
     ) {
-        let stringUrl = "https://api.weatherapi.com/v1/search.json?key=\(apiKey)&q=\(cityName)"
+        let stringUrl = "https://api.weatherapi.com/v1/search.json?"
+        let paremeters: Parameters = [
+            "key": self.apiKey,
+            "q": cityName,
+        ]
 
-        self.dataFetcher.fetchGenericJSONData(stringUrl: stringUrl, response: completion)
+        self.dataFetcher.fetchGenericJSONData(
+            stringUrl: stringUrl,
+            parameters: paremeters,
+            response: completion
+        )
     }
 }

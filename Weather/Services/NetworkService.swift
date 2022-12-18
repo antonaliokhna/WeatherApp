@@ -17,6 +17,7 @@ class NetworkService: Networkign {
 
     func request(
         stringUrl: String,
+        parameters: Parameters,
         completion: @escaping completionHandlerWitchOptionalDataOrAFError
     ) {
         guard let url = URL(string: stringUrl) else {
@@ -24,15 +25,26 @@ class NetworkService: Networkign {
 
             return
         }
-        let request = createRequest(request: url, completion: completion)
+        
+        let request = createRequest(
+            request: url,
+            parameters: parameters,
+            completion: completion
+        )
         request.resume()
     }
 
     private func createRequest(
         request: URLConvertible,
+        parameters: Parameters,
         completion: @escaping completionHandlerWitchOptionalDataOrAFError
     ) -> DataRequest {
-        return sessionManager.request(request).validate().response { response in
+        return sessionManager.request(
+            request,
+            parameters: parameters
+        )
+        .validate()
+        .response { response in
             completion(response.result)
         }
     }

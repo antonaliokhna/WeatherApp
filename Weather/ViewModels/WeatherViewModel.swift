@@ -46,7 +46,7 @@ extension WeatherViewModel {
     private func fetchWeatherModel(cityName: String) {
         dataFetcher.fetchWeatherModelData(
             cityName: cityName,
-            coundDaysforecast: 7
+            countDayforecast: 7
         ) { result in
             switch result {
             case .success(let model):

@@ -17,9 +17,13 @@ class NetworkDataFetcher: DataFetcherType {
 
     func fetchGenericJSONData<T: Decodable>(
         stringUrl: String,
+        parameters: Parameters,
         response: @escaping completionHandlerWitchGenericTypeOrNetworkError<T>
     ) {
-        networkService.request(stringUrl: stringUrl) { result in
+        networkService.request(
+            stringUrl: stringUrl,
+            parameters: parameters
+        ) { result in
             switch result {
             case .success(let data):
                 let decodedData = self.decodeJSON(type: T.self, from: data)

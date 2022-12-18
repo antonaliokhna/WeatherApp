@@ -6,9 +6,10 @@
 //
 
 import Foundation
-import Alamofire
 
 protocol DataFetcherType {
+    typealias Parameters = [String: Any]
+
     typealias resultWitchGenericTypeOrNetworkError<T: Decodable> =
         Result<T, NetworkError>
 
@@ -17,6 +18,7 @@ protocol DataFetcherType {
 
     func fetchGenericJSONData<T: Decodable>(
         stringUrl: String,
+        parameters: Parameters,
         response: @escaping completionHandlerWitchGenericTypeOrNetworkError<T>
     )
 }
