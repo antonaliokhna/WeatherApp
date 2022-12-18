@@ -24,6 +24,7 @@ struct GeometryGetter: View {
         return Color.clear
     }
 }
+
 struct GeometryGetter_Previews: PreviewProvider {
     static var previews: some View {
         DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))

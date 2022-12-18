@@ -1,8 +1,8 @@
 //
-//  AFError + extension.swift
+//  AFError + extensions.swift
 //  Weather
 //
-//  Created by Anton Aliokhna on 12/14/22.
+//  Created by Anton Aliokhna on 12/18/22.
 //
 
 import Foundation

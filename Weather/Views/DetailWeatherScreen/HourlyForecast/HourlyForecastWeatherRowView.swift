@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct HourlyForecastWeatherRowView: View {
-    //var hourlyForecastRowViewModel: HourlyForecastRowViewModel
+    @StateObject var rowViewModel: HourlyForecastRowViewModel
     var body: some View {
         VStack {
             HStack(alignment: .bottom, spacing: 0) {
-                Text("12")
+                Text(rowViewModel.timeHour)
                     .font(.subheadline)
                     .fontWeight(.bold)
 
-                Text("AM")
+                Text(rowViewModel.meridiem)
                     .font(.footnote)
             }
 
-            Image(systemName: "cloud.fill")
+            Image(systemName: rowViewModel.image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 24, alignment: .center)
 
-            Text("-29°")
+            Text(rowViewModel.temperature)
                 .font(.headline)
         }
         .frame(width: 40)

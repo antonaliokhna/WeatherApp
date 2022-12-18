@@ -26,7 +26,6 @@ struct DetailWeatherView: View {
 
                         NavigationLink {
                             WeatherListView()
-
                         } label: {
                             Image(systemName: "list.bullet")
                         }

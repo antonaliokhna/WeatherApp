@@ -10,21 +10,6 @@ import Foundation
 struct WeatherListModel {
     private(set) var favoriteCities = ["Warsaw", "Brest", "London"]
 
-    lazy var filteredCities: [String] = favoriteCities
-
-    mutating func filterCitiesBy(text: String) {
-        guard !text.isEmpty else {
-            clearFilteredCities()
-
-            return
-        }
-        filteredCities = favoriteCities.filter{ $0.hasPrefix(text) }
-    }
-
-    mutating func clearFilteredCities() {
-        filteredCities = favoriteCities
-    }
-
     mutating func addFavoriteCity(name: String) {
         favoriteCities.append(name)
     }

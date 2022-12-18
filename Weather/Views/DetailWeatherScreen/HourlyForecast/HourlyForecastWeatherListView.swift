@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct HourlyForecastWeatherListView: View {
+    @StateObject var viewModel: HourlyForecastWeatherListViewModel
+    let topOffsetSafeArea: CGFloat
+
     @State private var position: CGRect = CGRect()
-    var topOffsetSafeArea: CGFloat = 0
+    private let row = GridItem(.fixed(50), spacing: 5, alignment: .center)
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading) {
@@ -27,8 +30,10 @@ struct HourlyForecastWeatherListView: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(Array(repeating: 0, count: 24), id: \.self) { _ in
-                        HourlyForecastWeatherRowView()
+                    ForEach(viewModel.hourlyForecastRowViewModels, id: \.self) { viewModel in
+                        HourlyForecastWeatherRowView(
+                            rowViewModel: viewModel
+                        )
                     }
                 }
                 .padding([.horizontal, .bottom])
@@ -42,10 +47,9 @@ struct HourlyForecastWeatherListView: View {
             : 0
         )
         .background(GeometryGetter(rect: $position))
-
-
     }
 }
+
 struct HourlyForecastWeatherListView_Previews: PreviewProvider {
     static var previews: some View {
         DetailWeatherView()

@@ -31,14 +31,17 @@ struct DetailWeatherContentView: View {
                     VStack(spacing: 16) {
                         DetailWeatherHeaderView(
                             detailWeatherHeaderViewModel:
-                                weatherViewModel.detailHeaderVideModel1!,
+                                weatherViewModel.detailHeaderVideModel!,
                             topSafeAreaEdge: topSafeAreaEdge,
                             hourlyForecastPosition: $hourlyForecastBlock
                         )
                         .padding(.bottom, topSafeAreaEdge * 2)
 
-                        HourlyForecastWeatherListView(topOffsetSafeArea: topSafeAreaEdge)
-                            .background(GeometryGetter(rect: $hourlyForecastBlock))
+                        HourlyForecastWeatherListView(
+                            viewModel: weatherViewModel.hourlyForecastWeatherListViewModel!,
+                            topOffsetSafeArea: topSafeAreaEdge
+                        )
+                        .background(GeometryGetter(rect: $hourlyForecastBlock))
 
                         DailyForecastWeatherListView(
                             dailyForecastViewModel: weatherViewModel.dailyForecastViewModels, topOffsetSafeArea: topSafeAreaEdge

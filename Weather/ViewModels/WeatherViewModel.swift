@@ -17,52 +17,26 @@ class WeatherViewModel: ObservableObject {
     @Published var status: NetworkStatuses = .loading
     @Published var cityName: String = "--"
 
-    @Published var detailHeaderVideModel1: DetailWeatherHeaderViewModel?
-    @Published var dailyForecastViewModels1: [DailyForecastWeatherViewModel] = []
-    @Published var hourlyForecastViewModel : [HourlyForecastRowViewModel] = []
-
-    var detailHeaderVideModel: DetailWeatherHeaderViewModel {
-        //TODO: - REPLASE TO EMPTY INIT
-        return DetailWeatherHeaderViewModel(weatherModel: weatherModel.value!)
-    }
-
-    var dailyForecastViewModels: [DailyForecastWeatherViewModel] {
-        return weatherModel.value!.forecast.forecastday.map {
-            DailyForecastWeatherViewModel(weathderForecustDay: $0)
-        }
-    }
-
-//    var hourlyForecastRowViewModel: [HourlyForecastRowViewModel] {
-//        return
-//    }
-
-
-//    var currentWeather: [WeatherModel.Current] {
-//        return weatherModel.value?.current ?? WeatherModel.Current(
-//    }
-
-
-//    var currentWeather: WeatherModel.Current {
-//        return weatherModel.value!.current
-//    }
+    @Published var detailHeaderVideModel: DetailWeatherHeaderViewModel?
+    @Published var dailyForecastViewModels: [DailyForecastWeatherViewModel] = []
+    @Published var hourlyForecastWeatherListViewModel : HourlyForecastWeatherListViewModel?
 
     init(cityName: String) {
         self.cityName = cityName
         fetchWeatherModel(cityName: cityName)
-        //setupWeatherModelBindings()
     }
 
-    func selectNewCity(cityName: String) {
-        self.cityName = cityName
-        fetchWeatherModel(cityName: cityName)
-        //setupWeatherModelBindings()
-        status = .loading
-        print(cityName)
+    func selectNewCity(viewModel: WeatherViewModel) {
+        self.cityName = viewModel.cityName
+        self.status = viewModel.status
+        self.weatherModel = viewModel.weatherModel
+        self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
+        self.dailyForecastViewModels = viewModel.dailyForecastViewModels
+        self.hourlyForecastWeatherListViewModel = viewModel.hourlyForecastWeatherListViewModel
     }
     
     func retryFetchWeatherModel() {
         fetchWeatherModel(cityName: cityName)
-
         status = .loading
     }
 }
@@ -81,14 +55,19 @@ extension WeatherViewModel {
                 self.cityName = model.location.name
                 self.status = .sucsess
 
-//                self.hourlyForecastViewModel  = model.forecast.forecastday.m {
-//                    DailyForecastWeatherViewModel(weathderForecustDay: $0)
-//                }
-
-                self.dailyForecastViewModels1 = model.forecast.forecastday.map {
+                self.dailyForecastViewModels = model.forecast.forecastday.map {
                     DailyForecastWeatherViewModel(weathderForecustDay: $0)
                 }
-                self.detailHeaderVideModel1 = DetailWeatherHeaderViewModel(
+
+                self.hourlyForecastWeatherListViewModel =
+                HourlyForecastWeatherListViewModel(
+                    weatherForecastDay: model.forecast.forecastday,
+                    currentDate: Date(
+                        timeIntervalSince1970: model.location.localtimeEpoch
+                    )
+                )
+
+                self.detailHeaderVideModel = DetailWeatherHeaderViewModel(
                     weatherModel: model
                 )
 
@@ -100,39 +79,19 @@ extension WeatherViewModel {
             }
         }
     }
-
-//    private func setupWeatherModelBindings() {
-//        weatherModel
-//            .sink { completion in
-//                switch completion {
-//                case .failure(let error):
-//                    //self.appError = error
-//                    print(error)
-//                case .finished:
-//                    print("Finished")
-//                    break
-//                }
-//            } receiveValue: { [weak self] weatherModel in
-//                guard let self = self,
-//                      let weather = weatherModel else { return }
-//
-//                print("azaz")
-//            }
-//            .store(in: &cancellables)
-//    }
 }
 
-//MARK: - Hashable protocol
-//extension WeatherViewModel: Hashable {
-//    var identifier: String {
-//        return UUID().uuidString
-//    }
-//
-//    public func hash(into hasher: inout Hasher) {
-//        return hasher.combine(identifier)
-//    }
-//
-//    static func == (lhs: WeatherViewModel, rhs: WeatherViewModel) -> Bool {
-//        return lhs.cityName == rhs.cityName
-//    }
-//}
+//MARK: - Hashable
+extension WeatherViewModel: Hashable {
+    var identifier: String {
+        return UUID().uuidString
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+
+    static func == (lhs: WeatherViewModel, rhs: WeatherViewModel) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}

@@ -1,8 +1,8 @@
 //
-//  String + extension.swift
+//  Double + extensions.swift
 //  Weather
 //
-//  Created by Anton Aliokhna on 12/15/22.
+//  Created by Anton Aliokhna on 12/18/22.
 //
 
 import Foundation

@@ -7,22 +7,57 @@
 
 import Foundation
 
-class HourlyForecastRowViewModel {
+class HourlyForecastRowViewModel: ObservableObject {
     private let hourlyForecastModel: WeatherModel.Forecast.Forecastday.Hour
 
-    var timeHour: String {
-        //return weatherModel.current.tempC
-        let timeSpan = hourlyForecastModel.timeEpoch
-        let date = Date(timeIntervalSince1970: timeSpan)
+    lazy private var timeHourDate: String = {
+        let date = Date(timeIntervalSince1970: hourlyForecastModel.timeEpoch)
         let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
-        dateFormatter.timeZone = .current
+        print(date)
+        dateFormatter.dateFormat = "h a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         let localDate = dateFormatter.string(from: date)
+        print(localDate)
+        return localDate
+    }()
 
-        return "dsad"
+    var timeHour: String {
+        return String(timeHourDate.split(separator: " ").first ?? "--")
+    }
+
+    var meridiem: String {
+        return String(timeHourDate.split(separator: " ").last ?? "")
+    }
+
+    var image: String {
+        //TODO: Add logic
+
+        return "cloud"
+    }
+
+    var temperature: String {
+        return "\(hourlyForecastModel.tempC.toRoundedNonfractionalStringValue)°"
     }
 
     init(hourlyForecastModel: WeatherModel.Forecast.Forecastday.Hour) {
         self.hourlyForecastModel = hourlyForecastModel
+    }
+}
+
+//MARK: - Hashable
+extension HourlyForecastRowViewModel: Hashable {
+    var identifier: String {
+        return UUID().uuidString
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+
+    static func == (
+        lhs: HourlyForecastRowViewModel,
+        rhs: HourlyForecastRowViewModel
+    ) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }

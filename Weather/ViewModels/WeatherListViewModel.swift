@@ -13,31 +13,31 @@ class WeatherListViewModel: ObservableObject {
     private var weatherListModel = WeatherListModel()
     private var searchCitiesModels: [SearchCityWeatherModel] = []
 
-    var currentSearchCity: String = ""
-
-    var weatherViewModels: [WeatherViewModel] {
-        return weatherFavoriteCities.map { WeatherViewModel(cityName: $0) }
-    }
-
+    @Published var favoriteWeatherViewModels: [WeatherViewModel] = []
     @Published var searchCitiNames: [String] = []
-
-    var searchCitiesNames: [String] {
-       // return weatherListModel.favoriteCities
-        return searchCitiesModels.map { $0.name }
-    }
-
-    //@Published var weatherViewModels: [WeatherViewModel] = []
     var filterCityText: String = "" {
         willSet {
-            //weatherListModel.filterCitiesBy(text: filterCityText)
             if filterCityText.count >= 3 {
                 searchCitiesBy(cityNameText: filterCityText)
             }
         }
     }
 
+    var selectedCityName: String = ""
+    var selectedCityWeatherViewModel: WeatherViewModel?
+
+    var searchCitiesNames: [String] {
+        return searchCitiesModels.map { $0.name }
+    }
+
     var weatherFavoriteCities: [String] {
         return weatherListModel.favoriteCities
+    }
+
+    init() {
+        self.favoriteWeatherViewModels = weatherFavoriteCities.map {
+            WeatherViewModel(cityName: $0)
+        }
     }
 
     func searchCitiesBy(cityNameText: String) {
@@ -56,7 +56,15 @@ class WeatherListViewModel: ObservableObject {
         }
     }
 
-    func addFavoriteCity(name: String) {
-        weatherListModel.addFavoriteCity(name: name)
+    func addFavoriteCity() {
+        guard let viewModel = selectedCityWeatherViewModel else { return }
+        favoriteWeatherViewModels.append(viewModel)
+        weatherListModel.addFavoriteCity(name: viewModel.cityName)
+    }
+
+    func createNewWeahetViewModelBySelectedCityName() -> WeatherViewModel {
+        let viewModel = WeatherViewModel(cityName: selectedCityName)
+        selectedCityWeatherViewModel = viewModel
+        return viewModel
     }
 }

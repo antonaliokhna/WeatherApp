@@ -9,19 +9,20 @@ import SwiftUI
 
 struct WeatherCityRowView: View {
     //@StateObject var viewModel: WeatherViewModel
-    @StateObject var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel
+    var detailWeatherHeaderViewModel: DetailWeatherHeaderViewModel?
+    var cityName: String
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(detailWeatherHeaderViewModel.cityName)
+                Text(cityName)
                     .font(.largeTitle)
 
-                Text(detailWeatherHeaderViewModel.currentTime)
+                Text(self.detailWeatherHeaderViewModel?.currentTime ?? "")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
                 Spacer()
-                Text(detailWeatherHeaderViewModel.description)
+                Text(detailWeatherHeaderViewModel?.description ?? "")
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
@@ -29,13 +30,13 @@ struct WeatherCityRowView: View {
 
             Spacer()
             VStack(alignment: .trailing) {
-                Text(detailWeatherHeaderViewModel.temperature)
+                Text(detailWeatherHeaderViewModel?.temperature ?? "")
                     .font(.system(size: 48))
                     .fontWeight(.light)
 
                 Spacer()
 
-                Text(detailWeatherHeaderViewModel.maxMinTemperature)
+                Text(detailWeatherHeaderViewModel?.maxMinTemperature ?? "")
                     .font(.headline)
             }
         }

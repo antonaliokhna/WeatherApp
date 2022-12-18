@@ -24,7 +24,7 @@ struct DescriptionDetailWeatherItemView: View {
             Text("Wind is making it feel colder.")
                 .font(.subheadline)
         }
-        .frame(width: .infinity, height: 176)
+        .frame(height: 176)
     }
 }
 

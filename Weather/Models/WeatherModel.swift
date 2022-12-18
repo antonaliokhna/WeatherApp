@@ -17,7 +17,8 @@ struct WeatherModel: Codable {
         let country: String
         let lat: Double
         let lon: Double
-        let localtimeEpoch: Int
+        let localtimeEpoch: Double
+        let localtime: String
     }
 
     struct Current: Codable {
@@ -49,7 +50,7 @@ struct WeatherModel: Codable {
         let forecastday: [Forecastday]
 
         struct Forecastday: Codable {
-            let dateEpoch: Int
+            let dateEpoch: Double
             let day: Day
 
             struct Day: Codable {
@@ -89,7 +90,7 @@ struct WeatherModel: Codable {
             let hour: [Hour]
 
             struct Hour: Codable {
-                let timeEpoch: Int
+                let timeEpoch: Double
                 let time: String
                 let tempC: Double
                 let isDay: Int

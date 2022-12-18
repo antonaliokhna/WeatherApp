@@ -9,21 +9,25 @@ import SwiftUI
 
 struct WeatherListView: View {
     @StateObject private var viewModel = WeatherListViewModel()
+    @State private var isPresentedLa: Bool = false
+
     @EnvironmentObject var weather: WeatherViewModel
     @Environment(\.dismiss) var dismiss
-
-    @State var isPresentedLa: Bool = false
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(viewModel.weatherFavoriteCities, id: \.self) { cityName in
+                    ForEach(viewModel.favoriteWeatherViewModels, id: \.self) {
+                        viewModel in
                         Button {
-                            //isPresentedLa.toggle()
-                            self.weather.selectNewCity(cityName: cityName)
+                            weather.selectNewCity(viewModel: viewModel)
                             dismiss()
                         } label: {
-                            Text(cityName)
+                            WeatherCityRowView(
+                                detailWeatherHeaderViewModel:
+                                    viewModel.detailHeaderVideModel,
+                                cityName: viewModel.cityName
+                            )
                         }
                         .listRowInsets(EdgeInsets())
                         .padding(.horizontal)
@@ -35,10 +39,10 @@ struct WeatherListView: View {
                     text: $viewModel.filterCityText,
                     prompt: Text("Search for a city")
                 ) {
-                    ForEach(viewModel.searchCitiesNames, id: \.self) { cityName in
+                    ForEach(viewModel.searchCitiesNames, id: \.self) {
+                        cityName in
                         Button {
-                            viewModel.currentSearchCity = cityName
-                            //viewModel.addFavoriteCity(name: cityName)
+                            viewModel.selectedCityName = cityName
                             isPresentedLa.toggle()
                         } label: {
                             Text(cityName)
@@ -49,28 +53,33 @@ struct WeatherListView: View {
                 }
                 .scrollIndicators(.hidden)
                 .sheet(isPresented: $isPresentedLa) {
-                    let weatherViewModel = WeatherViewModel(
-                        cityName: viewModel.currentSearchCity
-                    )
                     GeometryReader { geometry in
                         NavigationView {
-                            DetailWeatherContentView(topSafeAreaEdge: geometry.size.height * 0.2)
-                                .toolbar {
-                                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                                        Button("Cancel") {
-                                            isPresentedLa.toggle()
-                                        }
-                                    }
-
-                                    ToolbarItem(placement: .navigationBarTrailing) {
-                                        Button("Add") {
-                                            viewModel.addFavoriteCity(name: viewModel.currentSearchCity)
-                                            isPresentedLa.toggle()
-                                        }
+                            DetailWeatherContentView(
+                                topSafeAreaEdge: geometry.size.height * 0.2
+                            )
+                            .toolbar {
+                                ToolbarItem(placement: .cancellationAction) {
+                                    Button {
+                                        isPresentedLa.toggle()
+                                    } label: {
+                                        Text("Close")
                                     }
                                 }
-                                .environmentObject(weatherViewModel)
+
+                                ToolbarItem(placement: .confirmationAction) {
+                                    Button {
+                                        viewModel.addFavoriteCity()
+                                        isPresentedLa.toggle()
+                                    } label: {
+                                        Text("Add")
+                                    }
+                                }
+                            }
                         }
+                        .environmentObject(
+                            viewModel.createNewWeahetViewModelBySelectedCityName()
+                        )
                     }
                 }
             }

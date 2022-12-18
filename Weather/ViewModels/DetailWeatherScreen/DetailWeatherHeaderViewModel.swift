@@ -15,10 +15,18 @@ class DetailWeatherHeaderViewModel: ObservableObject {
     }
 
     var currentTime: String {
-        //TODO: - Write logic
 
-        return "12:00 pm"
+        let localtime = weatherModel.location.localtime
+        guard let date = localtime.stringToDate() else {
+            return "--"
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+
+        return dateFormatter.string(from: date)
     }
+
     var temperature: String {
         return temperatureDouble.toRoundedNonfractionalStringValue
     }
