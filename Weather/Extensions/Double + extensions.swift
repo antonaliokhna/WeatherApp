@@ -11,4 +11,8 @@ extension Double {
     var toRoundedNonfractionalStringValue: String {
         return String(format: "%.f", (self.rounded()))
     }
+
+    var timeSpanToDate: Date {
+        return Date(timeIntervalSince1970: self)
+    }
 }

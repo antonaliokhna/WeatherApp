@@ -15,7 +15,6 @@ class WeatherHeaderViewModel: ObservableObject {
     }
 
     var currentTime: String {
-
         let localtime = weatherModel.location.localtime
         guard let date = localtime.stringToDate() else {
             return "--"
@@ -50,7 +49,7 @@ class WeatherHeaderViewModel: ObservableObject {
     var maxMinTemperature: String {
         guard let forecaseFirstDay = weatherModel.forecast
             .forecastday.first else {
-            return "Unknown"
+            return "--"
         }
         let max = forecaseFirstDay.day.maxtempC
             .toRoundedNonfractionalStringValue

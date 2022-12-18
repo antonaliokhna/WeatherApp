@@ -9,7 +9,7 @@ import Foundation
 
 class DescriptionItemCollectionViewModel: ObservableObject {
     private let currentWeatherModel: WeatherModel.Current
-    var descriptionItemsViewModel: [DescriptionItemViewModel] = []
+    private(set) var descriptionItemsViewModel: [DescriptionItemViewModel] = []
 
     init(currentWeatherModel: WeatherModel.Current) {
         self.currentWeatherModel = currentWeatherModel

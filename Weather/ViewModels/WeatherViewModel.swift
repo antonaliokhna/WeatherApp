@@ -65,9 +65,7 @@ extension WeatherViewModel {
                 self.hourlyForecastWeatherListViewModel =
                 HourlyForecastWeatherListViewModel(
                     weatherForecastDay: model.forecast.forecastday,
-                    currentDate: Date(
-                        timeIntervalSince1970: model.location.localtimeEpoch
-                    )
+                    currentDate: model.location.localtimeEpoch.timeSpanToDate
                 )
 
                 self.detailHeaderVideModel = WeatherHeaderViewModel(

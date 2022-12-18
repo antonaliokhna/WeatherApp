@@ -8,11 +8,14 @@
 import Foundation
 
 class DailyForecastWeatherViewModel {
-    private let weathderForecustDay: WeatherModel.Forecast.Forecastday
+    private let weatherForecustDay: WeatherModel.Forecast.Forecastday
 
-    var weekDat: String {
-        //TODO: - Add logic
-        return "Today"
+    var weekDate: String {
+        let timeSpanDate = weatherForecustDay.dateEpoch
+        let date = timeSpanDate.timeSpanToDate
+        guard let stringDayOfWeek = date.dayOfWeek() else { return "--" }
+
+        return stringDayOfWeek
     }
 
     var weatherImage: String {
@@ -23,28 +26,28 @@ class DailyForecastWeatherViewModel {
 
     var precipitationProbability: String {
         //TODO: - Fix bad logic
-        let chanceOfRain = weathderForecustDay.day.dailyChanceOfRain
-        let chanceOfSnow = weathderForecustDay.day.dailyChanceOfSnow
+        let chanceOfRain = weatherForecustDay.day.dailyChanceOfRain
+        let chanceOfSnow = weatherForecustDay.day.dailyChanceOfSnow
 
         return "\(chanceOfRain > chanceOfSnow ? chanceOfRain : chanceOfSnow )%"
     }
 
     var minDayTemperature: String {
-        let min = weathderForecustDay.day.mintempC
+        let min = weatherForecustDay.day.mintempC
             .toRoundedNonfractionalStringValue
 
         return "\(min)°"
     }
 
     var maxDayTemperature: String {
-        let max = weathderForecustDay.day.maxtempC
+        let max = weatherForecustDay.day.maxtempC
             .toRoundedNonfractionalStringValue
 
         return "\(max)°"
     }
 
     init(weathderForecustDay: WeatherModel.Forecast.Forecastday) {
-        self.weathderForecustDay = weathderForecustDay
+        self.weatherForecustDay = weathderForecustDay
     }
 }
 

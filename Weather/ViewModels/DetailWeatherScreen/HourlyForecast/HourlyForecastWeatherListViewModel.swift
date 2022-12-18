@@ -11,7 +11,7 @@ class HourlyForecastWeatherListViewModel: ObservableObject {
     private let weatherForecastDay: [WeatherModel.Forecast.Forecastday]
     private let currentDate: Date
 
-    var hourlyForecastRowViewModels: [HourlyForecastRowViewModel]
+    private(set) var hourlyForecastRowViewModels: [HourlyForecastRowViewModel]
 
     init(weatherForecastDay: [WeatherModel.Forecast.Forecastday], currentDate: Date) {
         self.weatherForecastDay = weatherForecastDay
@@ -19,17 +19,15 @@ class HourlyForecastWeatherListViewModel: ObservableObject {
 
         let dates = weatherForecastDay.flatMap { forecastDay in
             forecastDay.hour.filter { hour in
-                let date = Date(timeIntervalSince1970: hour.timeEpoch)
+                let date = hour.timeEpoch.timeSpanToDate
 
                 return date.addingTimeInterval(60 * 60) >= currentDate
-                && date <= currentDate.addingTimeInterval(60 * 60 * 10)
+                && date <= currentDate.addingTimeInterval(60 * 60 * 24)
             }
         }
         
-        let temp = dates.map { hour in
+        self.hourlyForecastRowViewModels = dates.map { hour in
             HourlyForecastRowViewModel(hourlyForecastModel: hour)
         }
-
-        self.hourlyForecastRowViewModels = temp
     }
 }

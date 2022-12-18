@@ -11,7 +11,7 @@ struct DailyForecastWeatherRowView: View {
     var dayForecastViewModel: DailyForecastWeatherViewModel
     var body: some View {
         HStack {
-            Text(dayForecastViewModel.weekDat)
+            Text(dayForecastViewModel.weekDate)
                 .font(.title3)
                 .frame(width: 56, alignment: .leading)
 
