@@ -94,12 +94,11 @@ extension DescriptionItemCollectionViewModel {
     }
 
     private func getVisibleMiles() -> DescriptionItemViewModel {
-        let value = currentWeatherModel.feelslikeC
-            .toRoundedNonfractionalStringValue
+        let value = currentWeatherModel.visMiles
         return DescriptionItemViewModel(
             textLabel: "Visible",
             imageLabel: "eye.fill",
-            value: "\(value)°",
+            value: "\(value) Mph",
             description: "Average visibility range."
         )
     }
@@ -117,7 +116,7 @@ extension DescriptionItemCollectionViewModel {
         return DescriptionItemViewModel(
             textLabel: "Gusts of wind",
             imageLabel: "windshield.rear.and.heat.waves",
-            value: currentWeatherModel.uv.toStringValue,
+            value: currentWeatherModel.gustMph.toRoundedNonfractionalStringValue,
             description: "Gusts of wind."
         )
     }

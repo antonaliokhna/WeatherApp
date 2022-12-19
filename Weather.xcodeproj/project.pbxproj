@@ -195,6 +195,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		646F4CCB295026A60084507E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				64E21CCE2941493B00D009C5 /* WeatherApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		647735452947CC4000B9CE14 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +270,7 @@
 				647735462947CC4A00B9CE14 /* ViewModels */,
 				64E21CDC2941634300D009C5 /* Views */,
 				6446B6BD294EBC58005F8F48 /* Extensions */,
-				64E21CCE2941493B00D009C5 /* WeatherApp.swift */,
+				646F4CCB295026A60084507E /* Application */,
 				64E21CD22941493C00D009C5 /* Assets.xcassets */,
 				64E21CD42941493C00D009C5 /* Preview Content */,
 			);
