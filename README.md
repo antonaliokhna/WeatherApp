@@ -16,14 +16,11 @@ The application uses the free <a href="https://www.weatherapi.com">WeatherAPI.co
 
 ## Stack of technologies
 
-- Swift
-- SwiftUI
+- Swift(SwiftUI)
 - MVVM
 - Alamofire
 - SOLID
 - CocoaPods
-- Custom error Handling
-
 
 # Application Features
 
