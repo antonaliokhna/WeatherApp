@@ -8,9 +8,9 @@
 import Foundation
 
 class DataFecherService {
-    typealias Parameters = [String: Any]
-
     private let apiKey = "API_KEY"
+
+    typealias Parameters = [String: Any]
 
     var dataFetcher: DataFetcherType
 

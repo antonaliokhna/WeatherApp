@@ -14,7 +14,7 @@ struct DailyForecastWeatherListView: View {
     var body: some View {
         CustomWeatherStackView(topOffsetSafeArea: topOffsetSafeArea) {
             Label {
-                Text("7-DAY FORECAST")
+                Text("\(dailyForecastViewModel.count)-DAY FORECAST")
             } icon: {
                 Image(systemName: "calendar")
             }
