@@ -2,8 +2,8 @@
 
 # Weather-SwiftUI Application
 
-<img src="Weather/Assets.xcassets/DetailScreen.dataset/DetailScreen.gif" width="235" height="515" align="right">
-<img src="Weather/Assets.xcassets/DetailScreen.imageset/DetailScreen.png" width="235" height="515" align="right">
+<img src="Weather/Assets.xcassets/Gif/DetailScreenExample.dataset/DetailScreen.gif" width="235" height="515" align="right">
+<img src="Weather/Assets.xcassets/Png/DetailScreen.imageset/DetailScreen.png" width="235" height="515" align="right">
 
 ## About my project
 
@@ -24,8 +24,8 @@ The application uses the free <a href="https://www.weatherapi.com">WeatherAPI.co
 
 # Application Features
 
-<img src="Weather/Assets.xcassets/ListScreen.dataset/ListScreen.gif" width="235" height="515" align="left">
-<img src="Weather/Assets.xcassets/ErrorHandler.imageset/ErrorHandler.png" width="235" height="515" align="left">
+<img src="Weather/Assets.xcassets/Gif/ListScreenExample.dataset/ListScreen.gif" width="235" height="515" align="left">
+<img src="Weather/Assets.xcassets/Png/ErrorHandler.imageset/ErrorHandler.png" width="235" height="515" align="left">
 
 ## The app includes custom animations, and custom features
 
@@ -55,8 +55,8 @@ The application uses the free <a href="https://www.weatherapi.com">WeatherAPI.co
 
 # Getting Started
 
-<img src="Weather/Assets.xcassets/WhiteTheme.dataset/WhiteTheme.gif" width="235" height="515" align="right">
-<img src="Weather/Assets.xcassets/ListScreen.imageset/ListScreen.png" width="235" height="515" align="right">
+<img src="Weather/Assets.xcassets/Gif/WhiteThemeExample.dataset/WhiteTheme.gif" width="235" height="515" align="right">
+<img src="Weather/Assets.xcassets/Png/ListScreen.imageset/ListScreen.png" width="235" height="515" align="right">
 
 ## Conditions for running the application 
 
