@@ -19,14 +19,16 @@ struct DailyForecastWeatherListView: View {
                 Image(systemName: "calendar")
             }
         } contentView: {
-            ForEach(Array(dailyForecastViewModel.enumerated()), id: \.0)
-            { index, dayForecastViewModel in
-                DailyForecastWeatherRowView(
-                    dayForecastViewModel: dayForecastViewModel
-                )
-                if index < dailyForecastViewModel.count - 1 {
-                    Divider()
-                }
+            LazyVStack {
+                ForEach(Array(dailyForecastViewModel.enumerated()), id: \.0)
+                { index, dayForecastViewModel in
+                    DailyForecastWeatherRowView(
+                        dayForecastViewModel: dayForecastViewModel
+                    )
+                    if index < dailyForecastViewModel.count - 1 {
+                        Divider()
+                    }
+            }
             }
         }
     }

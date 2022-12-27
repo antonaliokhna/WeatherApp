@@ -41,10 +41,9 @@ struct DetailWeatherContentView: View {
                         .padding(.bottom, topSafeAreaEdge * 2)
 
                         HourlyForecastWeatherListView(
-                            hourlyListViewModel:
-                                weatherViewModel
-                                .hourlyForecastWeatherListViewModel!,
-                            topOffsetSafeArea: topSafeAreaEdge
+                            topOffsetSafeArea: topSafeAreaEdge,
+                            hourlyListViewModel: weatherViewModel
+                                .hourlyForecastWeatherListViewModel!
                         )
                         .background(GeometryGetter(rect: $hourlyForecastBlock))
 

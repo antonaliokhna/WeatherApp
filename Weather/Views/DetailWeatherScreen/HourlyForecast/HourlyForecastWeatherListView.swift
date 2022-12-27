@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct HourlyForecastWeatherListView: View {
-    @StateObject var hourlyListViewModel: HourlyForecastWeatherListViewModel
     let topOffsetSafeArea: CGFloat
+    @StateObject var hourlyListViewModel: HourlyForecastWeatherListViewModel
 
     @State private var position: CGRect = CGRect()
-    private let row = GridItem(.fixed(50), spacing: 5, alignment: .center)
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading) {
