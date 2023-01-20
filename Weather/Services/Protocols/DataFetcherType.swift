@@ -10,15 +10,15 @@ import Foundation
 protocol DataFetcherType {
     typealias Parameters = [String: Any]
 
-    typealias resultWitchGenericTypeOrNetworkError<T: Decodable> =
-        Result<T, NetworkError>
+    typealias resultWitchGenericTypeOrCustomError<T: Decodable> =
+        Result<T, CustomError>
 
-    typealias completionHandlerWitchGenericTypeOrNetworkError<T: Decodable> =
-        (resultWitchGenericTypeOrNetworkError<T>) -> Void
+    typealias completionHandlerWitchGenericTypeOrCustomError<T: Decodable> =
+        (resultWitchGenericTypeOrCustomError<T>) -> Void
 
-    func fetchGenericJSONData<T: Decodable>(
+    func fetchGenericData<T: Decodable>(
         stringUrl: String,
         parameters: Parameters,
-        response: @escaping completionHandlerWitchGenericTypeOrNetworkError<T>
+        response: @escaping completionHandlerWitchGenericTypeOrCustomError<T>
     )
 }

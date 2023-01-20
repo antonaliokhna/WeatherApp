@@ -80,7 +80,7 @@ struct DetailWeatherContentView: View {
                         .font(.title)
                         .fontWeight(.medium)
 
-                    Text(error.errorDescription!)
+                    Text(error.errorDescription)
                         .multilineTextAlignment(.center)
 
                     Button {

@@ -8,19 +8,16 @@
 import Foundation
 
 enum NetworkError: Error, LocalizedError {
-    case internetConnectionFailed
     case requestFailed(statusCode: Int?)
-    case decodingDataFailed
+    case internetConnectionFailed
     case requestTimeOut
     case invalidURL
 
-    var errorDescription: String? {
-        let description: String?
+    var errorDescription: String! {
+        let description: String
         switch self {
         case .requestFailed(let statusCode):
-            description = "Request execution error \(statusCode ?? 404)."
-        case .decodingDataFailed:
-            description = "Invalid decoding data. Please contact the developer."
+            description = "Request execution error \(statusCode ?? 418)."
         case .invalidURL:
             description = "Error when trying to execute a link request. Please contact the developer."
         case .requestTimeOut:

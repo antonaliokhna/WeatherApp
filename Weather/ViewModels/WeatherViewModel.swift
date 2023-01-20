@@ -8,7 +8,7 @@
 import Foundation
 
 class WeatherViewModel: ObservableObject {
-    private let dataFetcher = DataFecherService()
+    private let networkDataFecher = NetworkDataService()
     private var weatherModel: WeatherModel?
 
     @Published var status: NetworkStatuses = .loading
@@ -30,7 +30,7 @@ class WeatherViewModel: ObservableObject {
         self.weatherModel = viewModel.weatherModel
         self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
         self.hourlyForecastWeatherListViewModel =
-        viewModel.hourlyForecastWeatherListViewModel
+            viewModel.hourlyForecastWeatherListViewModel
         self.dailyForecastViewModels = viewModel.dailyForecastViewModels
         self.descriptionDetailViewModel = viewModel.descriptionDetailViewModel
     }
@@ -44,7 +44,7 @@ class WeatherViewModel: ObservableObject {
 //MARK: - Private network logic functions
 extension WeatherViewModel {
     private func fetchWeatherModel(cityName: String) {
-        dataFetcher.fetchWeatherModelData(
+        networkDataFecher.fetchWeatherModelData(
             cityName: cityName,
             countDayforecast: 7
         ) { [weak self] result in
@@ -59,7 +59,6 @@ extension WeatherViewModel {
 
     private func setValuesByWeathe(model: WeatherModel) {
         self.cityName = model.location.name
-        self.status = .sucsess
 
         self.dailyForecastViewModels = model.forecast.forecastday.map {
             DailyForecastWeatherViewModel(weathderForecustDay: $0)

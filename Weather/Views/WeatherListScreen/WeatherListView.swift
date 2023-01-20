@@ -33,6 +33,9 @@ struct WeatherListView: View {
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                     }
+                    .onDelete { index in
+                        viewModel.removeFavoriteCity(at: index)
+                    }
                 }
                 .listStyle(.inset)
                 .searchable(

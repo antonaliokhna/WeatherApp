@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum NetworkStatuses {
-    case failed(status: NetworkError)
+enum NetworkStatuses: LocalizedError {
+    case failed(status: CustomError)
     case sucsess
     case loading
 }
