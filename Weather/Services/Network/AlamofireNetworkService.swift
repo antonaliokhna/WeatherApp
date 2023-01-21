@@ -10,7 +10,7 @@ import Alamofire
 
 class AlamofireNetworkService: DataFetcherServiceType, DataPusherServiceType {
 
-    private let sessionManager: Session = {
+    private let session: Session = {
         let configuration = AF.sessionConfiguration
         configuration.timeoutIntervalForRequest = 5
 
@@ -21,7 +21,7 @@ class AlamofireNetworkService: DataFetcherServiceType, DataPusherServiceType {
         whereTo url: String,
         data: Data,
         parameters: Parameters,
-        completion: @escaping (Result<Data, CustomError>) -> Void
+        completion: @escaping ResultWitchDataOrCustomErrorReturnVoid
     ) {
         print("Push \(data.count) bytes to network...")
     }
@@ -29,7 +29,7 @@ class AlamofireNetworkService: DataFetcherServiceType, DataPusherServiceType {
     func fetch(
         from url: String,
         parameters: Parameters,
-        completion: @escaping (Result<Data?, CustomError>) -> Void
+        completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     ) {
         guard let url = URL(string: url) else {
             completion(.failure(.networkError(error: .invalidURL)))
@@ -48,9 +48,9 @@ class AlamofireNetworkService: DataFetcherServiceType, DataPusherServiceType {
     private func createRequest(
         request: URLConvertible,
         parameters: Parameters,
-        completion: @escaping (Result<Data?, CustomError>) -> Void
+        completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     ) -> DataRequest {
-        return sessionManager.request(
+        return session.request(
             request,
             parameters: parameters
         )

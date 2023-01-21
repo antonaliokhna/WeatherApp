@@ -18,7 +18,7 @@ enum LocalError: Error, LocalizedError {
         case .pushDataFailed:
             description = "Local error. Push data failed."
         case .fetchDataFailed:
-            description = "Fetch error. Fetch data failed."
+            description = "Local error. Fetch data failed."
         case .unknownError:
             description = "Unknown error. :("
         }

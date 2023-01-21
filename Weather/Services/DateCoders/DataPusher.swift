@@ -7,19 +7,19 @@
 
 import Foundation
 
-class DataPusher {
+class DataPusher: DataPusherType {
 
     private var service: DataPusherServiceType
 
-    init(service: UserDefaultsService = UserDefaultsService()) {
+    init(service: UserDefaultsService) {
         self.service = service
     }
 
     func pushGenericValue<T: Encodable>(
         url: String,
         value: T,
-        parameters: [String: Any] = [:],
-        response: @escaping (Result<Data, CustomError>) -> Void
+        parameters: Parameters,
+        response: @escaping ResultWitchDataOrCustomErrorReturnVoid
     ) {
         do {
             let data = try encodeData(from: value)

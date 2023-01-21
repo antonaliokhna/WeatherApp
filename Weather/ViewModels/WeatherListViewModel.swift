@@ -105,7 +105,7 @@ class WeatherListViewModel: ObservableObject {
 
     private func saveCities() {
         localdataFetcher.pushCities(
-            from: "Cities",
+            whereTo: "Cities",
             names: weatherListModel.favoriteCities
         ) { result in
             print(result)

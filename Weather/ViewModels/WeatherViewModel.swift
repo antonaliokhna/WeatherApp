@@ -11,7 +11,7 @@ class WeatherViewModel: ObservableObject {
     private let networkDataFecher = NetworkDataService()
     private var weatherModel: WeatherModel?
 
-    @Published var status: NetworkStatuses = .loading
+    @Published var status: RequestStatuses = .loading
     @Published var cityName: String = "--"
 
     @Published var detailHeaderVideModel: WeatherHeaderViewModel?

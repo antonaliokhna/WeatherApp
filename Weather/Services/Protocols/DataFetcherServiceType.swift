@@ -13,12 +13,12 @@ protocol DataFetcherServiceType {
     typealias ResultWitchOptionalDataOrCustomError =
         Result<Data?, CustomError>
 
-    typealias completionHandlerWitchOptionalDataOrCustomError =
+    typealias ResultWitchOptionalDataOrCustomErrorReturnVoid =
         (ResultWitchOptionalDataOrCustomError) -> Void
 
     func fetch(
         from url: String,
         parameters: [String: Any],
-        completion: @escaping completionHandlerWitchOptionalDataOrCustomError
+        completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     )
 }

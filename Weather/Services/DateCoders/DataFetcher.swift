@@ -11,17 +11,17 @@ class DataFetcher: DataFetcherType {
     
     private var service: DataFetcherServiceType
 
-    init(service: DataFetcherServiceType = AlamofireNetworkService()) {
+    init(service: DataFetcherServiceType) {
         self.service = service
     }
 
     func fetchGenericData<T: Decodable>(
-        stringUrl: String,
-        parameters: [String: Any] = [:],
-        response: @escaping completionHandlerWitchGenericTypeOrCustomError<T>
+        url: String,
+        parameters: Parameters,
+        response: @escaping ResultWitchGenericDecodableTypeOrCustomErrorReturnVoid<T>
     ) {
         service.fetch(
-            from: stringUrl,
+            from: url,
             parameters: parameters
         ) { result in
             switch result {

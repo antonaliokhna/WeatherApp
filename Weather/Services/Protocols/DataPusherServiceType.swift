@@ -13,13 +13,13 @@ protocol DataPusherServiceType {
     typealias ResultWitchDataOrCustomError =
         Result<Data, CustomError>
 
-    typealias completionHandlerWitchDataOrCustomError =
+    typealias ResultWitchDataOrCustomErrorReturnVoid =
         (ResultWitchDataOrCustomError) -> Void
     
     func push(
         whereTo url: String,
         data: Data,
         parameters: [String: Any],
-        completion: @escaping completionHandlerWitchDataOrCustomError
+        completion: @escaping ResultWitchDataOrCustomErrorReturnVoid
     )
 }

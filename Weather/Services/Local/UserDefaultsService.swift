@@ -15,7 +15,7 @@ class UserDefaultsService: DataFetcherServiceType, DataPusherServiceType {
         whereTo url: String,
         data: Data,
         parameters: [String : Any],
-        completion: @escaping (Result<Data, CustomError>) -> Void
+        completion: @escaping ResultWitchDataOrCustomErrorReturnVoid
     ) {
         userDefaults.set(data, forKey: url)
         completion(.success(data))
@@ -24,7 +24,7 @@ class UserDefaultsService: DataFetcherServiceType, DataPusherServiceType {
     func fetch(
         from url: String,
         parameters: [String: Any],
-        completion: @escaping (Result<Data?, CustomError>) -> Void
+        completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     ) {
         let data = userDefaults.data(forKey: url)
         completion(.success(data))

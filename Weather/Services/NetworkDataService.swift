@@ -13,15 +13,19 @@ class NetworkDataService {
 
     typealias Parameters = [String: Any]
 
-    var dataFetcher: DataFetcher
+    var dataFetcher: DataFetcherType
 
-    init(dataFetcher: DataFetcher = DataFetcher()) {
+    init(
+        dataFetcher: DataFetcherType = DataFetcher(
+            service: AlamofireNetworkService()
+        )
+    ) {
         self.dataFetcher = dataFetcher
     }
 
     func fetchWeatherModelData(
         cityName: String,
-        countDayforecast: Int,
+        countDayforecast: Int = 7,
         completion: @escaping (Result<WeatherModel, CustomError>) -> Void
     ) {
         let stringUrl = "https://api.weatherapi.com/v1/forecast.json?"
@@ -32,7 +36,7 @@ class NetworkDataService {
         ]
 
         self.dataFetcher.fetchGenericData(
-            stringUrl: stringUrl,
+            url: stringUrl,
             parameters: paremeters,
             response: completion
         )
@@ -50,7 +54,7 @@ class NetworkDataService {
         ]
 
         self.dataFetcher.fetchGenericData(
-            stringUrl: stringUrl,
+            url: stringUrl,
             parameters: paremeters,
             response: completion
         )

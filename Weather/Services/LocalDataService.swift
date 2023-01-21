@@ -11,14 +11,16 @@ class LocalDataService {
 
     typealias Parameters = [String: Any]
 
-    let dataFetcher: DataFetcher
-    let dataPusher: DataPusher
+    let dataFetcher: DataFetcherType
+    let dataPusher: DataPusherType
 
     init(
-        dataFetcher: DataFetcher = DataFetcher(
+        dataFetcher: DataFetcherType = DataFetcher(
             service: UserDefaultsService()
         ),
-        dataPusher: DataPusher = DataPusher()
+        dataPusher: DataPusherType = DataPusher(
+            service: UserDefaultsService()
+        )
     ) {
         self.dataFetcher = dataFetcher
         self.dataPusher = dataPusher
@@ -29,19 +31,21 @@ class LocalDataService {
         completion: @escaping (Result<[String], CustomError>) -> Void
     ) {
         dataFetcher.fetchGenericData(
-            stringUrl: key,
+            url: key,
+            parameters: [:],
             response: completion
         )
     }
 
     func pushCities(
-        from: String,
+        whereTo url: String,
         names: [String],
         completion: @escaping (Result<Data, CustomError>) -> Void
     ) {
         dataPusher.pushGenericValue(
-            url: from,
-            value: names
+            url: url,
+            value: names,
+            parameters: [:]
         ) { response in
             completion(response)
         }
