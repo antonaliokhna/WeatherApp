@@ -8,20 +8,43 @@
 import Foundation
 
 class WeatherViewModel: ObservableObject {
-    private let networkDataFecher = NetworkDataService()
+    private let networkDataFetcher = NetworkDataService()
+    private let localDataFetcher = LocalDataService()
     private var weatherModel: WeatherModel?
 
     @Published var status: RequestStatuses = .loading
-    @Published var cityName: String = "--"
+    @Published var cityName: String = "--" {
+        willSet {
+            guard self.cityName != newValue else { return }
+            localPushSelectedCity(name: newValue)
+        }
+    }
 
     @Published var detailHeaderVideModel: WeatherHeaderViewModel?
     @Published var dailyForecastViewModels: [DailyForecastWeatherViewModel] = []
     @Published var hourlyForecastWeatherListViewModel: HourlyForecastWeatherListViewModel?
     @Published var descriptionDetailViewModel: DescriptionItemCollectionViewModel?
 
-    init(cityName: String) {
+    init(cityName: String? = nil) {
+        guard let cityName = cityName else {
+            localDataFetcher.fetchCityName(by: "selectedCity") { result in
+                switch result {
+                case .success(let name):
+                    self.cityName = name
+                case .failure(let error):
+                    //TODO: Default value witch error...
+                    self.cityName = "Minsk"
+                    //TODO: Error logic
+                    print(error)
+                }
+                self.fetchWeatherModel(cityName: self.cityName)
+            }
+
+            return
+        }
+
         self.cityName = cityName
-        fetchWeatherModel(cityName: cityName)
+        self.fetchWeatherModel(cityName: self.cityName)
     }
 
     func selectNewCity(viewModel: WeatherViewModel) {
@@ -30,7 +53,7 @@ class WeatherViewModel: ObservableObject {
         self.weatherModel = viewModel.weatherModel
         self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
         self.hourlyForecastWeatherListViewModel =
-            viewModel.hourlyForecastWeatherListViewModel
+        viewModel.hourlyForecastWeatherListViewModel
         self.dailyForecastViewModels = viewModel.dailyForecastViewModels
         self.descriptionDetailViewModel = viewModel.descriptionDetailViewModel
     }
@@ -44,7 +67,7 @@ class WeatherViewModel: ObservableObject {
 //MARK: - Private network logic functions
 extension WeatherViewModel {
     private func fetchWeatherModel(cityName: String) {
-        networkDataFecher.fetchWeatherModelData(
+        networkDataFetcher.fetchWeatherModelData(
             cityName: cityName,
             countDayforecast: 7
         ) { [weak self] result in
@@ -80,6 +103,24 @@ extension WeatherViewModel {
         )
 
         self.status = .sucsess
+    }
+}
+
+//MARK: - Private local logic functions
+extension WeatherViewModel {
+    private func localPushSelectedCity(name: String) {
+        localDataFetcher.pushCity(
+            whereTo: "selectedCity",
+            name: name
+        ) { result in
+            //TODO: - Add logic...
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 

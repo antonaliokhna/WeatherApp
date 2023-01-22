@@ -22,7 +22,7 @@ class HourlyForecastWeatherListViewModel: ObservableObject {
                 let date = hour.timeEpoch.timeSpanToDate
 
                 return date.addingTimeInterval(60 * 60) >= currentDate
-                && date <= currentDate.addingTimeInterval(60 * 60 * 24)
+                    && date <= currentDate.addingTimeInterval(60 * 60 * 24)
             }
         }
         

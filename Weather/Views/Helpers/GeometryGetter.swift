@@ -27,6 +27,6 @@ struct GeometryGetter: View {
 
 struct GeometryGetter_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
+        DetailWeatherView(weatherViewModel: WeatherViewModel())
     }
 }

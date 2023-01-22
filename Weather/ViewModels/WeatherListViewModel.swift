@@ -45,21 +45,40 @@ class WeatherListViewModel: ObservableObject {
         return searchCitiesModel.map { $0.name }
     }
 
-    init(dataFetcher: NetworkDataService = NetworkDataService(),
-         localdataFetcher: LocalDataService = LocalDataService(),
-         weatherListModel: WeatherListModel = WeatherListModel()
+    init(
+        dataFetcher: NetworkDataService = NetworkDataService(),
+        localdataFetcher: LocalDataService = LocalDataService(),
+        weatherListModel: WeatherListModel = WeatherListModel()
     ) {
         self.networkDataFetcher = dataFetcher
         self.weatherListModel = weatherListModel
         self.localdataFetcher = localdataFetcher
 
-        localdataFetcher.fetchCityNames(by: "Cities") { result in
+        localdataFetcher.fetchCityName(by: "selectedCity") { result in
+            var cities: [String] = []
             switch result {
-            case .success(let cities):
-                print(cities)
-                self.weatherListModel = WeatherListModel(favoriteCities: cities)
+            case .success(let name):
+                cities.append(name)
             case .failure(let error):
+                //TODO: Default value...
+                cities.append("Minsk")
+                //TODO: Error logic
                 print(error)
+            }
+
+            localdataFetcher.fetchCityNames(by: "Cities") { result in
+                switch result {
+                case .success(var newCities):
+                    if !newCities.contains(cities) {
+                        newCities.append(cities.first!)
+                    }
+                    cities = newCities
+                case .failure(let error):
+                    //TODO: Error logic
+                    print(error)
+                }
+
+                self.weatherListModel = WeatherListModel(favoriteCities: cities)
             }
         }
 
@@ -69,7 +88,9 @@ class WeatherListViewModel: ObservableObject {
     }
 
     func searchCitiesBy(cityNameText: String) {
-        self.networkDataFetcher.searchCityWeather(cityName: cityNameText) { result in
+        self.networkDataFetcher.searchCityWeather(
+            cityName: cityNameText
+        ) { result in
             switch result {
             case .success(let searchCities):
                 self.searchCitiesModel = searchCities
@@ -91,12 +112,27 @@ class WeatherListViewModel: ObservableObject {
     func removeFavoriteCity(at offset: IndexSet) {
         //TODO: - Bad logic
         offset.forEach { index in
-            let index = favoriteWeatherViewModels.index(favoriteWeatherViewModels.startIndex, offsetBy: index)
+            let index = favoriteWeatherViewModels.index(
+                favoriteWeatherViewModels.startIndex,
+                offsetBy: index
+            )
             removeFavoriteCity(viewModel: favoriteWeatherViewModels[index])
         }
     }
 
-    func removeFavoriteCity(viewModel: WeatherViewModel) {
+    func createOrLoadWeahetViewModelBySelectedCity() -> WeatherViewModel {
+        guard let selectedViewModel = selectedCityWeatherViewModel,
+              selectedViewModel.cityName == selectedCityName else {
+            let viewModel = WeatherViewModel(cityName: selectedCityName)
+            selectedCityWeatherViewModel = viewModel
+
+            return viewModel
+        }
+
+        return selectedViewModel
+    }
+
+    private func removeFavoriteCity(viewModel: WeatherViewModel) {
         let cityName = viewModel.cityName
         favoriteWeatherViewModels.removeAll { $0.cityName == cityName }
         weatherListModel.removeFavoriteCity(name: cityName)
@@ -112,15 +148,4 @@ class WeatherListViewModel: ObservableObject {
         }
     }
 
-    func createOrLoadWeahetViewModelBySelectedCity() -> WeatherViewModel {
-        guard let selectedViewModel = selectedCityWeatherViewModel,
-              selectedViewModel.cityName == selectedCityName else {
-            let viewModel = WeatherViewModel(cityName: selectedCityName)
-            selectedCityWeatherViewModel = viewModel
-
-            return viewModel
-        }
-
-        return selectedViewModel
-    }
 }

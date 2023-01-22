@@ -101,6 +101,6 @@ struct DetailWeatherContentView: View {
 struct DetailWeatherContentView_Previews: PreviewProvider {
     static var previews: some View {
         DetailWeatherView()
-            .environmentObject(WeatherViewModel(cityName: "Minsk"))
+            .environmentObject(WeatherViewModel())
     }
 }

@@ -49,6 +49,6 @@ struct WeatherCityRowView: View {
 struct WeatherCityRowView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherListView()
-            .environmentObject(WeatherViewModel(cityName: "Minsk"))
+            .environmentObject(WeatherViewModel())
     }
 }

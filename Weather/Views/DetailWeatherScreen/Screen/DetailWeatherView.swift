@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct DetailWeatherView: View {
-    //Start city (todo: Use UserDefaults)
-    @StateObject var weatherViewModel: WeatherViewModel =
-        WeatherViewModel(cityName: "Minsk")
+    @StateObject var weatherViewModel: WeatherViewModel = WeatherViewModel()
     var body: some View {
         GeometryReader  { geometryReader in
             NavigationView {
@@ -42,6 +40,6 @@ struct DetailWeatherView: View {
 
 struct DetailWeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
+        DetailWeatherView(weatherViewModel: WeatherViewModel())
     }
 }

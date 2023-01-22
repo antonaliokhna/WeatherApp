@@ -20,7 +20,6 @@ class DailyForecastWeatherViewModel {
 
     var weatherImage: String {
         //TODO: - Add logic
-        //return weathderForecustDay.day.condition.code.description
         return "cloud"
     }
 

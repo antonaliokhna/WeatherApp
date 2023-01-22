@@ -30,7 +30,6 @@ class HourlyForecastRowViewModel: ObservableObject {
 
     var image: String {
         //TODO: Add logic
-
         return "cloud"
     }
 

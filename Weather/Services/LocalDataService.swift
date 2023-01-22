@@ -26,6 +26,17 @@ class LocalDataService {
         self.dataPusher = dataPusher
     }
 
+    func fetchCityName(
+        by key: String,
+        completion: @escaping (Result<String, CustomError>) -> Void
+    ) {
+        dataFetcher.fetchGenericData(
+            url: key,
+            parameters: [:],
+            response: completion
+        )
+    }
+
     func fetchCityNames(
         by key: String,
         completion: @escaping (Result<[String], CustomError>) -> Void
@@ -35,6 +46,20 @@ class LocalDataService {
             parameters: [:],
             response: completion
         )
+    }
+
+    func pushCity(
+        whereTo url: String,
+        name: String,
+        completion: @escaping (Result<Data, CustomError>) -> Void
+    ) {
+        dataPusher.pushGenericValue(
+            url: url,
+            value: name,
+            parameters: [:]
+        ) { response in
+            completion(response)
+        }
     }
 
     func pushCities(

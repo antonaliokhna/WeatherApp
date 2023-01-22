@@ -56,7 +56,6 @@ struct DetailWeatherHeaderView: View {
                     currentValue: temperatureBlock.maxY))
                 )
             }
-            //Text(topOffset.description)
 
             Text(headerViewModel.description)
                 .font(.title2)
@@ -87,7 +86,7 @@ struct DetailWeatherHeaderView: View {
 }
 struct DetailWeatherHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailWeatherView(weatherViewModel: WeatherViewModel(cityName: "Minsk"))
+        DetailWeatherView(weatherViewModel: WeatherViewModel())
     }
 }
 
