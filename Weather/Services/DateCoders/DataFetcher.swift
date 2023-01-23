@@ -9,7 +9,7 @@ import Foundation
 
 class DataFetcher: DataFetcherType {
     
-    private var service: DataFetcherServiceType
+    private let service: DataFetcherServiceType
 
     init(service: DataFetcherServiceType) {
         self.service = service

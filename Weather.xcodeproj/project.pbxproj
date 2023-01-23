@@ -38,6 +38,7 @@
 		64806CFB294F218200D85FFB /* DescriptionItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64806CFA294F218200D85FFB /* DescriptionItemViewModel.swift */; };
 		64806CFE294F22DB00D85FFB /* DescriptionItemCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64806CFD294F22DB00D85FFB /* DescriptionItemCollectionViewModel.swift */; };
 		64806D00294F280000D85FFB /* Int + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64806CFF294F280000D85FFB /* Int + extensions.swift */; };
+		64A7A04A297D8E770093B4E0 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A7A049297D8E770093B4E0 /* Service.swift */; };
 		64CF8A572962E6FC00FA6F11 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF8A562962E6FC00FA6F11 /* UserDefaultsService.swift */; };
 		64CF8A592962EB4500FA6F11 /* LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF8A582962EB4500FA6F11 /* LocalDataService.swift */; };
 		64CF8A5B2963861400FA6F11 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF8A5A2963861400FA6F11 /* DataPusher.swift */; };
@@ -93,6 +94,7 @@
 		64806CFA294F218200D85FFB /* DescriptionItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionItemViewModel.swift; sourceTree = "<group>"; };
 		64806CFD294F22DB00D85FFB /* DescriptionItemCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionItemCollectionViewModel.swift; sourceTree = "<group>"; };
 		64806CFF294F280000D85FFB /* Int + extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + extensions.swift"; sourceTree = "<group>"; };
+		64A7A049297D8E770093B4E0 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		64CF8A562962E6FC00FA6F11 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		64CF8A582962EB4500FA6F11 /* LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataService.swift; sourceTree = "<group>"; };
 		64CF8A5A2963861400FA6F11 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		642B365129494BD100A0CBC9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				64A7A049297D8E770093B4E0 /* Service.swift */,
 				642B365229494BE800A0CBC9 /* DataFetcherType.swift */,
 				6407D0EB297C1A4F00BC5A3C /* DataPusherType.swift */,
 				642B365429494C1300A0CBC9 /* DataFetcherServiceType.swift */,
@@ -195,20 +198,13 @@
 			path = HourlyForecast;
 			sourceTree = "<group>";
 		};
-		643AAB0B296B018C0085FDC1 /* Network */ = {
+		643AAB0B296B018C0085FDC1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				6477355329480F3300B9CE14 /* AlamofireNetworkService.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		643AAB0C296B01A90085FDC1 /* Local */ = {
-			isa = PBXGroup;
-			children = (
 				64CF8A562962E6FC00FA6F11 /* UserDefaultsService.swift */,
 			);
-			path = Local;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		643AAB0D296B02F20085FDC1 /* DateCoders */ = {
@@ -275,8 +271,7 @@
 				6477355729480F7400B9CE14 /* NetworkDataService.swift */,
 				64CF8A582962EB4500FA6F11 /* LocalDataService.swift */,
 				643AAB0D296B02F20085FDC1 /* DateCoders */,
-				643AAB0B296B018C0085FDC1 /* Network */,
-				643AAB0C296B01A90085FDC1 /* Local */,
+				643AAB0B296B018C0085FDC1 /* Services */,
 				642B3658294AA28C00A0CBC9 /* Helpers */,
 				642B365129494BD100A0CBC9 /* Protocols */,
 			);
@@ -565,6 +560,7 @@
 				6446B6C1294EBC94005F8F48 /* AFError + extensions.swift in Sources */,
 				64E21CE6294268DE00D009C5 /* HourlyForecastWeatherRowView.swift in Sources */,
 				6477354E2947D0C500B9CE14 /* WeatherListModel.swift in Sources */,
+				64A7A04A297D8E770093B4E0 /* Service.swift in Sources */,
 				64CF8A592962EB4500FA6F11 /* LocalDataService.swift in Sources */,
 				64806D00294F280000D85FFB /* Int + extensions.swift in Sources */,
 				64F119A22946A62E00F277FB /* DescriptionDetailWeatherCollectionView.swift in Sources */,

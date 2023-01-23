@@ -7,9 +7,9 @@
 
 import Foundation
 
-class UserDefaultsService: DataFetcherServiceType, DataPusherServiceType {
-    
-    private let userDefaults = UserDefaults.standard
+class UserDefaultsService: Service {
+    typealias ServiceType = UserDefaults
+    let service: ServiceType = UserDefaults.standard
 
     func push(
         whereTo url: String,
@@ -17,7 +17,7 @@ class UserDefaultsService: DataFetcherServiceType, DataPusherServiceType {
         parameters: [String : Any],
         completion: @escaping ResultWitchDataOrCustomErrorReturnVoid
     ) {
-        userDefaults.set(data, forKey: url)
+        service.set(data, forKey: url)
         completion(.success(data))
     }
 
@@ -26,7 +26,7 @@ class UserDefaultsService: DataFetcherServiceType, DataPusherServiceType {
         parameters: [String: Any],
         completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     ) {
-        let data = userDefaults.data(forKey: url)
+        let data = service.data(forKey: url)
         completion(.success(data))
     }
 

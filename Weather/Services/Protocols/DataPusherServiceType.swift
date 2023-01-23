@@ -19,7 +19,7 @@ protocol DataPusherServiceType {
     func push(
         whereTo url: String,
         data: Data,
-        parameters: [String: Any],
+        parameters: Parameters,
         completion: @escaping ResultWitchDataOrCustomErrorReturnVoid
     )
 }

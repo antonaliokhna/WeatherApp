@@ -8,9 +8,10 @@
 import Foundation
 import Alamofire
 
-class AlamofireNetworkService: DataFetcherServiceType, DataPusherServiceType {
+class AlamofireNetworkService: Service {
 
-    private let session: Session = {
+    typealias ServiceType = Session
+    let service: ServiceType = {
         let configuration = AF.sessionConfiguration
         configuration.timeoutIntervalForRequest = 5
 
@@ -50,7 +51,7 @@ class AlamofireNetworkService: DataFetcherServiceType, DataPusherServiceType {
         parameters: Parameters,
         completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     ) -> DataRequest {
-        return session.request(
+        return service.request(
             request,
             parameters: parameters
         )

@@ -18,7 +18,7 @@ protocol DataFetcherServiceType {
 
     func fetch(
         from url: String,
-        parameters: [String: Any],
+        parameters: Parameters,
         completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     )
 }

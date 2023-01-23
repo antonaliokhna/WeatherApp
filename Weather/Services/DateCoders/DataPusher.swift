@@ -9,7 +9,7 @@ import Foundation
 
 class DataPusher: DataPusherType {
 
-    private var service: DataPusherServiceType
+    private let service: DataPusherServiceType
 
     init(service: UserDefaultsService) {
         self.service = service
