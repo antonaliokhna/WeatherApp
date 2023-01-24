@@ -27,7 +27,10 @@ class WeatherViewModel: ObservableObject {
 
     init(cityName: String? = nil) {
         guard let cityName = cityName else {
-            localDataFetcher.fetchCityName(by: "selectedCity") { result in
+            localDataFetcher.fetchCityName(
+                by: "selectedCity"
+            ) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let name):
                     self.cityName = name
@@ -53,7 +56,7 @@ class WeatherViewModel: ObservableObject {
         self.weatherModel = viewModel.weatherModel
         self.detailHeaderVideModel =  viewModel.detailHeaderVideModel
         self.hourlyForecastWeatherListViewModel =
-        viewModel.hourlyForecastWeatherListViewModel
+            viewModel.hourlyForecastWeatherListViewModel
         self.dailyForecastViewModels = viewModel.dailyForecastViewModels
         self.descriptionDetailViewModel = viewModel.descriptionDetailViewModel
     }

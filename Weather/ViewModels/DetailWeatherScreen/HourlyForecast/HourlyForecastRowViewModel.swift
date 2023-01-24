@@ -10,22 +10,23 @@ import Foundation
 class HourlyForecastRowViewModel: ObservableObject {
     private let hourlyForecastModel: WeatherModel.Forecast.Forecastday.Hour
 
-    lazy private var timeHourDate: String = {
+    lazy private var customTimeHourDate: String = {
         let timeSpanDate = hourlyForecastModel.timeEpoch
         let date = timeSpanDate.timeSpanToDate
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h a"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         let localDate = dateFormatter.string(from: date)
+
         return localDate
     }()
 
     var timeHour: String {
-        return String(timeHourDate.split(separator: " ").first ?? "--")
+        return String(customTimeHourDate.split(separator: " ").first ?? "--")
     }
 
     var meridiem: String {
-        return String(timeHourDate.split(separator: " ").last ?? "")
+        return String(customTimeHourDate.split(separator: " ").last ?? "")
     }
 
     var image: String {

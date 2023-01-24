@@ -29,6 +29,7 @@ class DescriptionItemCollectionViewModel: ObservableObject {
     //TODO: - AAAAAAAA Its Crutch!!!
     func getDescriptionItemViewModel() -> DescriptionItemViewModel {
         let firstElement = descriptionItemsViewModel.removeFirst()
+
         return firstElement
     }
 }

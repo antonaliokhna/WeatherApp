@@ -28,7 +28,7 @@ struct DailyForecastWeatherListView: View {
                     if index < dailyForecastViewModel.count - 1 {
                         Divider()
                     }
-            }
+                }
             }
         }
     }
