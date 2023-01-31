@@ -14,7 +14,7 @@ class UserDefaultsService: Service {
     func push(
         whereTo url: String,
         data: Data,
-        parameters: [String : Any],
+        parameters: Parameters,
         completion: @escaping ResultWitchDataOrCustomErrorReturnVoid
     ) {
         service.set(data, forKey: url)
@@ -23,7 +23,7 @@ class UserDefaultsService: Service {
 
     func fetch(
         from url: String,
-        parameters: [String: Any],
+        parameters: Parameters,
         completion: @escaping ResultWitchOptionalDataOrCustomErrorReturnVoid
     ) {
         let data = service.data(forKey: url)
