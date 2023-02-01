@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DailyForecastWeatherRowView: View {
-    var dayForecastViewModel: DailyForecastWeatherViewModel
+    let dayForecastViewModel: DailyForecastWeatherViewModel
     var body: some View {
         HStack {
             Text(dayForecastViewModel.weekDate)

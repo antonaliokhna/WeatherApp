@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DailyForecastWeatherListView: View {
-    var dailyForecastViewModel: [DailyForecastWeatherViewModel]
+    let dailyForecastViewModel: [DailyForecastWeatherViewModel]
 
     var topOffsetSafeArea: CGFloat = 0
     var body: some View {
