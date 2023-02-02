@@ -30,7 +30,7 @@ struct WeatherModel: Codable {
         let pressureMb: Int
         let pressureIn: Double
         let precipMm: Double
-        let precipIn: Int
+        let precipIn: Double
         let humidity: Int
         let cloud: Int
         let feelslikeC: Double
